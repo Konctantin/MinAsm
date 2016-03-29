@@ -101,6 +101,11 @@ namespace MinAsm
                 new RegisterOperand(src, E.Default)
             ));
 
+        public void Mov(Register dst, EffectiveAddres src) => Add(new I("MOV", 0x48, new O(0xB9), 0,
+                new RegisterOperand(dst, E.Default),
+                src // E.ModRm
+            ));
+
         #endregion
     }
 }
