@@ -11,8 +11,6 @@ namespace MinAsm.Encoding
 
         public Opcode Opcode { get; protected set; }
 
-        public OperandEncoding Encoding { get; }
-
         public byte FixedReg;
 
         public ModRM ModRM { get; private set; }
@@ -30,12 +28,11 @@ namespace MinAsm.Encoding
 
         // public Imm ExtraImmedicate { get; set; }
 
-        public Instruction(string mnemonic, byte prefix, Opcode opcode, OperandEncoding encoding, byte fixedReg, params Operand[] operands)
+        public Instruction(string mnemonic, byte prefix, Opcode opcode, byte fixedReg, params Operand[] operands)
         {
             Mnemonic = mnemonic;
             Prefix   = prefix;
             Opcode   = opcode;
-            Encoding = encoding;
             FixedReg = fixedReg;
             Oparands = new List<Operand>(operands);
         }
@@ -93,9 +90,6 @@ namespace MinAsm.Encoding
             }
 
             ConstructPrefix();
-
-            if (Encoding == OperandEncoding.AddToOpcode)
-                Opcode.Add(FixedReg);
 
             // modRM
             // sib
