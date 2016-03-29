@@ -4,7 +4,7 @@ namespace MinAsm.Operands
 {
     public abstract class Operand
     {
-        public virtual DataSize PerfSize { get; set; }
+        public DataSize PerfSize { get; set; }
         public virtual DataSize Size => PerfSize;
         public virtual int OperandSize => (int)Size >> 3;
 
@@ -14,5 +14,7 @@ namespace MinAsm.Operands
         }
 
         public abstract int Construct(Context context, Instruction instruction);
+
+        public override string ToString() => $"Size: 0x{((int)PerfSize >> 3):X}";
     }
 }

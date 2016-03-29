@@ -51,5 +51,7 @@ namespace MinAsm.Operands
         {
             return OperandSize;
         }
+
+        public override string ToString() => $"0x{m_value:X}";
     }
 }

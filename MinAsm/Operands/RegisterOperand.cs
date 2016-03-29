@@ -38,5 +38,7 @@ namespace MinAsm.Operands
             // Set the operand size to the size of the register.
             return 0;
         }
+
+        public override string ToString() => Register.Name;
     }
 }
