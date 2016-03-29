@@ -72,6 +72,18 @@ namespace MinAsm
 
         #endregion
 
+        /// <summary>
+        /// Return From Procedure.
+        /// </summary>
+        /// <param name="value"></param>
+        public void RetN(short value) => Add(new I("RETN", 0, new O(0xC2), 0, new Imm(value)));
+
+        /// <summary>
+        /// Return From Procedure.
+        /// </summary>
+        /// <param name="value"></param>
+        public void RetF(short value) => Add(new I("RETF", 0, new O(0xCA), 0, new Imm(value)));
+
         #region Mov
 
         public void Mov(Register dst, int value) => Add(new I("MOV", 0x00, new O(0xC4), 0,
