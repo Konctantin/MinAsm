@@ -52,7 +52,6 @@
     <Compile Include="DataSize.cs" />
     <Compile Include="Encoding\Instruction.cs" />
     <Compile Include="Encoding\ModRM.cs" />
-    <Compile Include="Encoding\Prefix.cs" />
     <Compile Include="Encoding\Opcode.cs" />
     <Compile Include="Operands\EffectiveAddres.cs" />
     <Compile Include="Operands\Imm.cs" />

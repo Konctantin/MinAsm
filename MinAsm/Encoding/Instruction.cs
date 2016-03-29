@@ -7,11 +7,11 @@ namespace MinAsm.Encoding
     {
         public string Mnemonic { get; }
 
-        public Prefix Prefix { get; }
+        public byte Prefix { get; private set; }
 
-        public Opcode Opcode { get; }
+        public Opcode Opcode { get; protected set; }
 
-        public OperandEncoding Encoding { get; } = OperandEncoding.Default;
+        public OperandEncoding Encoding { get; }
 
         public byte FixedReg;
 
@@ -28,7 +28,9 @@ namespace MinAsm.Encoding
 
         public Imm Immedicate { get; set; }
 
-        public Instruction(string mnemonic, Prefix prefix, Opcode opcode, OperandEncoding encoding, byte fixedReg, params Operand[] operands)
+        // public Imm ExtraImmedicate { get; set; }
+
+        public Instruction(string mnemonic, byte prefix, Opcode opcode, OperandEncoding encoding, byte fixedReg, params Operand[] operands)
         {
             Mnemonic = mnemonic;
             Prefix   = prefix;
@@ -36,6 +38,34 @@ namespace MinAsm.Encoding
             Encoding = encoding;
             FixedReg = fixedReg;
             Oparands = new List<Operand>(operands);
+        }
+
+        /// <summary>
+        /// Emits the REX-prefix, if used.
+        /// </summary>
+        void ConstructPrefix()
+        {
+            if (Prefix > 0)
+            {
+                Prefix |= 0x08;
+
+                if (ModRM != null && Sib != null)
+                {
+                    Prefix |= Sib.RexB;
+                    Prefix |= Sib.RexX;
+                    Prefix |= ModRM.RexR;
+                }
+                else if (ModRM != null)
+                {
+                    Prefix |= ModRM.RexB;
+                    Prefix |= ModRM.RexR;
+                }
+                else
+                {
+                    // No ModR/M or SIB bytes, but a reg-value anyway.
+                    Prefix |= (byte)((OpcodeReg & 0x08) >> 3);     // REX.B
+                }
+            }
         }
 
         internal void SetModRM()
@@ -62,12 +92,17 @@ namespace MinAsm.Encoding
                 operand.Construct(context, this);
             }
 
-            // prefix
-            // opcode
+            ConstructPrefix();
+
+            if (Encoding == OperandEncoding.AddToOpcode)
+                Opcode.Add(FixedReg);
+
             // modRM
             // sib
+
             // Displ
             // Imm
+            // ExtraImm
         }
 
 
