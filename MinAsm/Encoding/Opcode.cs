@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace MinAsm.Encoding
 {
-    public class Opcode
+    public class Opcode : IEnumerable<byte>
     {
         public byte[] Bytes { get; }
+
+        public int Size => Bytes.Length;
 
         public Opcode(params byte[] bytes)
         {
@@ -25,5 +29,9 @@ namespace MinAsm.Encoding
 
             Bytes[Bytes.Length - 1] |= (byte)(value & 0x7);
         }
+
+        public IEnumerator<byte> GetEnumerator() => (IEnumerator<byte>)Bytes.GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => (IEnumerator<byte>)Bytes.GetEnumerator();
     }
 }

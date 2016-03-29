@@ -99,6 +99,48 @@ namespace MinAsm.Encoding
             // ExtraImm
         }
 
+        public int Size
+        {
+            get
+            {
+                int size = 0;
+                if (Prefix != 0)
+                    ++size;
+                size += Opcode.Size;
+                if (ModRM != null)
+                    ++size;
+                if (Sib != null)
+                    ++size;
+                if (Immedicate != null)
+                    size += Immedicate.OperandSize;
+                return size;
+            }
+        }
+
+        public IEnumerable<byte> Bytes
+        {
+            get
+            {
+                if (Prefix != 0)
+                    yield return Prefix;
+
+                foreach (var b in Opcode)
+                    yield return b;
+
+                if (ModRM != null)
+                    yield return (byte)ModRM;
+
+                if (Sib != null)
+                    yield return (byte)Sib;
+
+                if (Immedicate != null)
+                    foreach (var b in Immedicate.Bytes)
+                        yield return b;
+
+                yield break;
+            }
+        }
+
 
         public override string ToString() => Mnemonic + " " + string.Join(", ", Oparands);
     }
