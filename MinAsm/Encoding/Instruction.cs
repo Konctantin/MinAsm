@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MinAsm.Operands;
 
 namespace MinAsm.Encoding
@@ -142,6 +143,9 @@ namespace MinAsm.Encoding
         }
 
 
-        public override string ToString() => Mnemonic + " " + string.Join(", ", Oparands);
+        public override string ToString() => (Mnemonic + " " + string.Join(", ", Oparands))
+            .PadRight(40, ' ')
+            + string.Join(" ", Bytes.Select(n => n.ToString("X2")))
+            ;
     }
 }
