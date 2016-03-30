@@ -23,11 +23,25 @@ namespace MinAsm
             m_instructions.Clear();
         }
 
-        void Add(Instruction instruction) => m_instructions.Add(instruction);
+        protected void Add(Instruction instruction)
+        {
+            m_instructions.Add(instruction);
+            instruction.Construct(Context);
+        }
 
         public void Bind()
         {
             throw new NotImplementedException();
+        }
+
+        public byte[] Assemble()
+        {
+            var list = new List<byte>();
+            foreach (var instruction in this)
+            {
+                list.AddRange(instruction.Bytes);
+            }
+            return list.ToArray();
         }
 
         public void Reset() => m_instructions.Clear();
