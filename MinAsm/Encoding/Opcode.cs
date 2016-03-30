@@ -30,8 +30,8 @@ namespace MinAsm.Encoding
             Bytes[Bytes.Length - 1] |= (byte)(value & 0x7);
         }
 
-        public IEnumerator<byte> GetEnumerator() => (IEnumerator<byte>)Bytes.GetEnumerator();
+        public IEnumerator<byte> GetEnumerator() => ((IEnumerable<byte>)Bytes).GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => (IEnumerator<byte>)Bytes.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<byte>)Bytes).GetEnumerator();
     }
 }
