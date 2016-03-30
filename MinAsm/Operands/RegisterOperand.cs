@@ -14,6 +14,7 @@ namespace MinAsm.Operands
             : base(register.Size)
         {
             Register = register;
+            Encoding = encoding;
         }
 
         public override int Construct(Context context, Instruction instruction)
@@ -21,14 +22,17 @@ namespace MinAsm.Operands
             switch (Encoding)
             {
                 case OperandEncoding.Default:
+                    instruction.SetModRM();
                     instruction.ModRM.Reg = Register.Value;
                     break;
                 case OperandEncoding.AddToOpcode:
-                    instruction.OpcodeReg = Register.Value;
+                    instruction.Opcode.Add(Register.Value);
                     break;
                 case OperandEncoding.ModRm:
+                    instruction.SetModRM();
                     instruction.ModRM.Mod = 0x03;
                     instruction.ModRM.RM  = Register.Value;
+                    instruction.ModRM.Reg = instruction.FixedReg;
                     break;
                 case OperandEncoding.Ignore:
                     // The operand is ignored.

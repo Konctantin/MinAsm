@@ -65,7 +65,7 @@ namespace MinAsm.Operands
                 {
                     case DataSize.None:  return new byte[0];
                     case DataSize.Bit8:  return BitConverter.GetBytes((byte)m_value);
-                    case DataSize.Bit16:
+                    case DataSize.Bit16: return BitConverter.GetBytes((short)m_value);
                     case DataSize.Bit32: return BitConverter.GetBytes((int)m_value);
                     case DataSize.Bit64: return BitConverter.GetBytes(m_value);
                     default:
