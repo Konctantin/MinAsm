@@ -28,12 +28,12 @@ namespace MinAsm
         /// <summary>
         /// Return From Procedure.
         /// </summary>
-        public void RenN() => Add(new I("RETN", 0x00, new O(0xC3), 0));
+        public void RetN() => Add(new I("RETN", 0x00, new O(0xC3), 0));
 
         /// <summary>
         /// Return From Procedure.
         /// </summary>
-        public void RenF() => Add(new I("RETF", 0x00, new O(0xCB), 0));
+        public void RetF() => Add(new I("RETF", 0x00, new O(0xCB), 0));
 
         /// <summary>
         /// Set Carry Flag.
@@ -83,29 +83,5 @@ namespace MinAsm
         /// </summary>
         /// <param name="value"></param>
         public void RetF(short value) => Add(new I("RETF", 0, new O(0xCA), 0, new Imm(value)));
-
-        #region Mov
-
-        public void Mov(Register dst, int value) => Add(new I("MOV", 0x00, new O(0xC4), 0,
-                new RegisterOperand(dst, E.ModRm),
-                new Imm(value)
-            ));
-
-        public void Mov(Register dst, long value) => Add(new I("MOV", 0x48, new O(0xB8), 0,
-                new RegisterOperand(dst, E.ModRm),
-                new Imm(value)
-            ));
-
-        public void Mov(Register dst, Register src) => Add(new I("MOV", 0x48, new O(0xB9), 0,
-                new RegisterOperand(dst, E.ModRm),
-                new RegisterOperand(src, E.Default)
-            ));
-
-        public void Mov(Register dst, EffectiveAddres src) => Add(new I("MOV", 0x48, new O(0xB9), 0,
-                new RegisterOperand(dst, E.Default),
-                src // E.ModRm
-            ));
-
-        #endregion
     }
 }
