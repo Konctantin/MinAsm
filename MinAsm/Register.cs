@@ -91,9 +91,9 @@
         public override bool Equals(object obj)
         {
             var tmp = obj as Register;
-            if (tmp == null)
-                return false;
-            return Value == tmp.Value && Type == tmp.Type;
+            if (tmp != null && obj is Register)
+                return Value == tmp.Value && Type == tmp.Type;
+            return false;
         }
 
         /// <summary>
