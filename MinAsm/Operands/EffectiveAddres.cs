@@ -79,7 +79,7 @@ namespace MinAsm.Operands
                 // Mod
                 instr.ModRM.ModFromDataSize(instr.DisplacementSize);
             }
-            else
+            else // [EBP+...]
             {
                 // Encode the SIB byte too.
                 instr.SetSib();

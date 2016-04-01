@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MinAsm
 {
@@ -19,23 +15,23 @@ namespace MinAsm
         /// <summary>
         /// A general purpose register.
         /// </summary>
-        GeneralPurpose = GeneralPurpose8Bit | GeneralPurpose16Bit | GeneralPurpose32Bit | GeneralPurpose64Bit,
+        GP = GP8 | GP16 | GP32 | GP64,
         /// <summary>
         /// An 8-bit general purpose register.
         /// </summary>
-        GeneralPurpose8Bit = 0x100 | DataSize.Bit8,
+        GP8 = 0x100 | DataSize.Bit8,
         /// <summary>
         /// A 16-bit general purpose register.
         /// </summary>
-        GeneralPurpose16Bit = 0x100 | DataSize.Bit16,
+        GP16 = 0x100 | DataSize.Bit16,
         /// <summary>
         /// A 32-bit general purpose register.
         /// </summary>
-        GeneralPurpose32Bit = 0x100 | DataSize.Bit32,
+        GP32 = 0x100 | DataSize.Bit32,
         /// <summary>
         /// A 64-bit general purpose register.
         /// </summary>
-        GeneralPurpose64Bit = 0x100 | DataSize.Bit64,
+        GP64 = 0x100 | DataSize.Bit64,
         /// <summary>
         /// A 64-bit MMX register.
         /// </summary>

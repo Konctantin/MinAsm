@@ -10,15 +10,15 @@ namespace MinAsm.Encoding
 
         public byte Prefix { get; private set; }
 
-        public Opcode Opcode { get; protected set; }
+        public Opcode Opcode { get; internal set; }
 
-        public byte FixedReg;
+        public byte RegField { get; set; }
 
         public ModRM ModRM { get; private set; }
 
         public Sib Sib { get; private set; }
 
-        public byte OpcodeReg { get; set; }
+        //public byte OpcodeReg { get; set; }
 
         public List<Operand> Oparands { get; } = new List<Operand>();
 
@@ -29,12 +29,12 @@ namespace MinAsm.Encoding
 
         // public Imm ExtraImmedicate { get; set; }
 
-        public Instruction(string mnemonic, byte prefix, Opcode opcode, byte fixedReg, params Operand[] operands)
+        public Instruction(string mnemonic, byte prefix, Opcode opcode, byte regField, params Operand[] operands)
         {
             Mnemonic = mnemonic;
             Prefix   = prefix;
             Opcode   = opcode;
-            FixedReg = fixedReg;
+            RegField = regField;
             Oparands = new List<Operand>(operands);
         }
 
@@ -61,7 +61,7 @@ namespace MinAsm.Encoding
                 else
                 {
                     // No ModR/M or SIB bytes, but a reg-value anyway.
-                    Prefix |= (byte)((OpcodeReg & 0x08) >> 3);     // REX.B
+                    //Prefix |= (byte)((OpcodeReg & 0x08) >> 3);     // REX.B
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace MinAsm.Encoding
             if (ModRM == null)
             {
                 ModRM = new ModRM();
-                ModRM.Reg = FixedReg;
+                ModRM.Reg = RegField;
             }
         }
 

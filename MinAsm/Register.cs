@@ -3,7 +3,7 @@
     /// <summary>
     /// An x86-64 register.
     /// </summary>
-    public class Register
+    public sealed class Register
     {
         /// <summary>
         /// Return register name.
@@ -49,14 +49,14 @@
         }
 
         /// <summary>
-        ///
+        /// Return true if register is empty.
         /// </summary>
         public bool IsNone => Value == 0 && Type == RegisterType.None;
 
         /// <summary>
         /// Returns whether the register is a general purpose register.
         /// </summary>
-        public bool IsGeneralPurpose => Type == RegisterType.GeneralPurpose;
+        public bool IsGP => Type == RegisterType.GP;
 
         /// <summary>
         /// Returns whether the register is a control register.
@@ -136,82 +136,82 @@
         /// <summary>
         /// The lower 8-bits of the accumulator register.
         /// </summary>
-        public static Register AL => new Register(nameof(AL), 0x00, RegisterType.GeneralPurpose8Bit);
+        public static Register AL => new Register(nameof(AL), 0x00, RegisterType.GP8);
 
         /// <summary>
         /// The lower 8-bits of the counter register.
         /// </summary>
-        public static Register CL => new Register(nameof(CL), 0x01, RegisterType.GeneralPurpose8Bit);
+        public static Register CL => new Register(nameof(CL), 0x01, RegisterType.GP8);
 
         /// <summary>
         /// The lower 8-bits of the data register.
         /// </summary>
-        public static Register DL => new Register(nameof(DL), 0x02, RegisterType.GeneralPurpose8Bit);
+        public static Register DL => new Register(nameof(DL), 0x02, RegisterType.GP8);
 
         /// <summary>
         /// The lower 8-bits of the base register.
         /// </summary>
-        public static Register BL => new Register(nameof(BL), 0x03, RegisterType.GeneralPurpose8Bit);
+        public static Register BL => new Register(nameof(BL), 0x03, RegisterType.GP8);
 
         /// <summary>
         /// The higher 8-bits of the lower 16-bits of the accumulator register.
         /// </summary>
-        public static Register AH => new Register(nameof(AH), 0x04, RegisterType.GeneralPurpose8Bit);
+        public static Register AH => new Register(nameof(AH), 0x04, RegisterType.GP8);
 
         /// <summary>
         /// The higher 8-bits of the lower 16-bits of the counter register.
         /// </summary>
-        public static Register CH => new Register(nameof(CH), 0x05, RegisterType.GeneralPurpose8Bit);
+        public static Register CH => new Register(nameof(CH), 0x05, RegisterType.GP8);
 
         /// <summary>
         /// The higher 8-bits of the lower 16-bits of the data register.
         /// </summary>
-        public static Register DH => new Register(nameof(DH), 0x06, RegisterType.GeneralPurpose8Bit);
+        public static Register DH => new Register(nameof(DH), 0x06, RegisterType.GP8);
 
         /// <summary>
         /// The higher 8-bits of the lower 16-bits of the base register.
         /// </summary>
-        public static Register BH => new Register(nameof(BH), 0x07, RegisterType.GeneralPurpose8Bit);
+        public static Register BH => new Register(nameof(BH), 0x07, RegisterType.GP8);
 
         /// <summary>
         /// The lower 8-bits of the nineth general purpose register.
         /// </summary>
-        public static Register R8L => new Register(nameof(R8L), 0x08, RegisterType.GeneralPurpose8Bit);
+        public static Register R8L => new Register(nameof(R8L), 0x08, RegisterType.GP8);
 
         /// <summary>
         /// The lower 8-bits of the tenth general purpose register.
         /// </summary>
-        public static Register R9L => new Register(nameof(R9L), 0x09, RegisterType.GeneralPurpose8Bit);
+        public static Register R9L => new Register(nameof(R9L), 0x09, RegisterType.GP8);
 
         /// <summary>
         /// The lower 8-bits of the eleventh general purpose register.
         /// </summary>
-        public static Register R10L => new Register(nameof(R10L), 0x0A, RegisterType.GeneralPurpose8Bit);
+        public static Register R10L => new Register(nameof(R10L), 0x0A, RegisterType.GP8);
 
         /// <summary>
         /// The lower 8-bits of the twelfth general purpose register.
         /// </summary>
-        public static Register R11L => new Register(nameof(R11L), 0x0B, RegisterType.GeneralPurpose8Bit);
+        public static Register R11L => new Register(nameof(R11L), 0x0B, RegisterType.GP8);
 
         /// <summary>
         /// The lower 8-bits of the thirteenth general purpose register.
         /// </summary>
-        public static Register R12L => new Register(nameof(R12L), 0x0C, RegisterType.GeneralPurpose8Bit);
+        public static Register R12L => new Register(nameof(R12L), 0x0C, RegisterType.GP8);
 
         /// <summary>
         /// The lower 8-bits of the fourteenth general purpose register.
         /// </summary>
-        public static Register R13L => new Register(nameof(R13L), 0x0D, RegisterType.GeneralPurpose8Bit);
+        public static Register R13L => new Register(nameof(R13L), 0x0D, RegisterType.GP8);
 
         /// <summary>
         /// The lower 8-bits of the fifteenth general purpose register.
         /// </summary>
-        public static Register R14L => new Register(nameof(R14L), 0x0E, RegisterType.GeneralPurpose8Bit);
+        public static Register R14L => new Register(nameof(R14L), 0x0E, RegisterType.GP8);
 
         /// <summary>
         /// The lower 8-bits of the sixteenth general purpose register.
         /// </summary>
-        public static Register R15L => new Register(nameof(R15L), 0x0F, RegisterType.GeneralPurpose8Bit);
+        public static Register R15L => new Register(nameof(R15L), 0x0F, RegisterType.GP8);
 
         #endregion
 
@@ -220,82 +220,82 @@
         /// <summary>
         /// The lower 16-bits of the accumulator register.
         /// </summary>
-        public static Register AX => new Register(nameof(AX), 0x00, RegisterType.GeneralPurpose16Bit);
+        public static Register AX => new Register(nameof(AX), 0x00, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the counter register.
         /// </summary>
-        public static Register CX => new Register(nameof(CX), 0x01, RegisterType.GeneralPurpose16Bit);
+        public static Register CX => new Register(nameof(CX), 0x01, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the data register.
         /// </summary>
-        public static Register DX => new Register(nameof(DX), 0x02, RegisterType.GeneralPurpose16Bit);
+        public static Register DX => new Register(nameof(DX), 0x02, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the base register.
         /// </summary>
-        public static Register BX => new Register(nameof(BX), 0x03, RegisterType.GeneralPurpose16Bit);
+        public static Register BX => new Register(nameof(BX), 0x03, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the stack pointer register.
         /// </summary>
-        public static Register SP => new Register(nameof(SP), 0x04, RegisterType.GeneralPurpose16Bit);
+        public static Register SP => new Register(nameof(SP), 0x04, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the base pointer register.
         /// </summary>
-        public static Register BP => new Register(nameof(BP), 0x05, RegisterType.GeneralPurpose16Bit);
+        public static Register BP => new Register(nameof(BP), 0x05, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the source index register.
         /// </summary>
-        public static Register SI => new Register(nameof(SI), 0x06, RegisterType.GeneralPurpose16Bit);
+        public static Register SI => new Register(nameof(SI), 0x06, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the destination index register.
         /// </summary>
-        public static Register DI => new Register(nameof(DI), 0x07, RegisterType.GeneralPurpose16Bit);
+        public static Register DI => new Register(nameof(DI), 0x07, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the nineth general purpose register.
         /// </summary>
-        public static Register R8W => new Register(nameof(R8W), 0x08, RegisterType.GeneralPurpose16Bit);
+        public static Register R8W => new Register(nameof(R8W), 0x08, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the tenth general purpose register.
         /// </summary>
-        public static Register R9W => new Register(nameof(R9W), 0x09, RegisterType.GeneralPurpose16Bit);
+        public static Register R9W => new Register(nameof(R9W), 0x09, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the eleventh general purpose register.
         /// </summary>
-        public static Register R10W => new Register(nameof(R10W), 0x0A, RegisterType.GeneralPurpose16Bit);
+        public static Register R10W => new Register(nameof(R10W), 0x0A, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the twelfth general purpose register.
         /// </summary>
-        public static Register R11W => new Register(nameof(R11W), 0x0B, RegisterType.GeneralPurpose16Bit);
+        public static Register R11W => new Register(nameof(R11W), 0x0B, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the thirteenth general purpose register.
         /// </summary>
-        public static Register R12W => new Register(nameof(R12W), 0x0C, RegisterType.GeneralPurpose16Bit);
+        public static Register R12W => new Register(nameof(R12W), 0x0C, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the fourteenth general purpose register.
         /// </summary>
-        public static Register R13W => new Register(nameof(R13W), 0x0D, RegisterType.GeneralPurpose16Bit);
+        public static Register R13W => new Register(nameof(R13W), 0x0D, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the fifteenth general purpose register.
         /// </summary>
-        public static Register R14W => new Register(nameof(R14W), 0x0E, RegisterType.GeneralPurpose16Bit);
+        public static Register R14W => new Register(nameof(R14W), 0x0E, RegisterType.GP16);
 
         /// <summary>
         /// The lower 16-bits of the sixteenth general purpose register.
         /// </summary>
-        public static Register R15W => new Register(nameof(R15W), 0x0F, RegisterType.GeneralPurpose16Bit);
+        public static Register R15W => new Register(nameof(R15W), 0x0F, RegisterType.GP16);
 
         #endregion
 
@@ -304,82 +304,82 @@
         /// <summary>
         /// The lower 32-bits of the accumulator register.
         /// </summary>
-        public static Register EAX => new Register(nameof(EAX), 0x00, RegisterType.GeneralPurpose32Bit);
+        public static Register EAX => new Register(nameof(EAX), 0x00, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the counter register.
         /// </summary>
-        public static Register ECX => new Register(nameof(ECX), 0x01, RegisterType.GeneralPurpose32Bit);
+        public static Register ECX => new Register(nameof(ECX), 0x01, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the data register.
         /// </summary>
-        public static Register EDX => new Register(nameof(EDX), 0x02, RegisterType.GeneralPurpose32Bit);
+        public static Register EDX => new Register(nameof(EDX), 0x02, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the base register.
         /// </summary>
-        public static Register EBX => new Register(nameof(EBX), 0x03, RegisterType.GeneralPurpose32Bit);
+        public static Register EBX => new Register(nameof(EBX), 0x03, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the stack pointer register.
         /// </summary>
-        public static Register ESP => new Register(nameof(ESP), 0x04, RegisterType.GeneralPurpose32Bit);
+        public static Register ESP => new Register(nameof(ESP), 0x04, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the base pointer register.
         /// </summary>
-        public static Register EBP => new Register(nameof(EBP), 0x05, RegisterType.GeneralPurpose32Bit);
+        public static Register EBP => new Register(nameof(EBP), 0x05, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the source index register.
         /// </summary>
-        public static Register ESI => new Register(nameof(ESI), 0x06, RegisterType.GeneralPurpose32Bit);
+        public static Register ESI => new Register(nameof(ESI), 0x06, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the destination index register.
         /// </summary>
-        public static Register EDI => new Register(nameof(EDI), 0x07, RegisterType.GeneralPurpose32Bit);
+        public static Register EDI => new Register(nameof(EDI), 0x07, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the nineth general purpose register.
         /// </summary>
-        public static Register R8D => new Register(nameof(R8D), 0x08, RegisterType.GeneralPurpose32Bit);
+        public static Register R8D => new Register(nameof(R8D), 0x08, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the tenth general purpose register.
         /// </summary>
-        public static Register R9D => new Register(nameof(R9D), 0x09, RegisterType.GeneralPurpose32Bit);
+        public static Register R9D => new Register(nameof(R9D), 0x09, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the eleventh general purpose register.
         /// </summary>
-        public static Register R10D => new Register(nameof(R10D), 0x0A, RegisterType.GeneralPurpose32Bit);
+        public static Register R10D => new Register(nameof(R10D), 0x0A, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the twelfth general purpose register.
         /// </summary>
-        public static Register R11D => new Register(nameof(R11D), 0x0B, RegisterType.GeneralPurpose32Bit);
+        public static Register R11D => new Register(nameof(R11D), 0x0B, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the thirteenth general purpose register.
         /// </summary>
-        public static Register R12D => new Register(nameof(R12D), 0x0C, RegisterType.GeneralPurpose32Bit);
+        public static Register R12D => new Register(nameof(R12D), 0x0C, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the fourteenth general purpose register.
         /// </summary>
-        public static Register R13D => new Register(nameof(R13D), 0x0D, RegisterType.GeneralPurpose32Bit);
+        public static Register R13D => new Register(nameof(R13D), 0x0D, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the fifteenth general purpose register.
         /// </summary>
-        public static Register R14D => new Register(nameof(R14D), 0x0E, RegisterType.GeneralPurpose32Bit);
+        public static Register R14D => new Register(nameof(R14D), 0x0E, RegisterType.GP32);
 
         /// <summary>
         /// The lower 32-bits of the sixteenth general purpose register.
         /// </summary>
-        public static Register R15D => new Register(nameof(R15D), 0x0F, RegisterType.GeneralPurpose32Bit);
+        public static Register R15D => new Register(nameof(R15D), 0x0F, RegisterType.GP32);
 
         #endregion
 
@@ -388,82 +388,82 @@
         /// <summary>
         /// The lower 64-bits of the accumulator register.
         /// </summary>
-        public static Register RAX => new Register(nameof(RAX), 0x00, RegisterType.GeneralPurpose64Bit);
+        public static Register RAX => new Register(nameof(RAX), 0x00, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the counter register.
         /// </summary>
-        public static Register RCX => new Register(nameof(RCX), 0x01, RegisterType.GeneralPurpose64Bit);
+        public static Register RCX => new Register(nameof(RCX), 0x01, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the data register.
         /// </summary>
-        public static Register RDX => new Register(nameof(RDX), 0x02, RegisterType.GeneralPurpose64Bit);
+        public static Register RDX => new Register(nameof(RDX), 0x02, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the base register.
         /// </summary>
-        public static Register RBX => new Register(nameof(RBX), 0x03, RegisterType.GeneralPurpose64Bit);
+        public static Register RBX => new Register(nameof(RBX), 0x03, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the stack pointer register.
         /// </summary>
-        public static Register RSP => new Register(nameof(RSP), 0x04, RegisterType.GeneralPurpose64Bit);
+        public static Register RSP => new Register(nameof(RSP), 0x04, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the base pointer register.
         /// </summary>
-        public static Register RBP => new Register(nameof(RBP), 0x05, RegisterType.GeneralPurpose64Bit);
+        public static Register RBP => new Register(nameof(RBP), 0x05, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the source index register.
         /// </summary>
-        public static Register RSI => new Register(nameof(RSI), 0x06, RegisterType.GeneralPurpose64Bit);
+        public static Register RSI => new Register(nameof(RSI), 0x06, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the destination index register.
         /// </summary>
-        public static Register RDI => new Register(nameof(RDI), 0x07, RegisterType.GeneralPurpose64Bit);
+        public static Register RDI => new Register(nameof(RDI), 0x07, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the nineth general purpose register.
         /// </summary>
-        public static Register R8 => new Register(nameof(R8), 0x08, RegisterType.GeneralPurpose64Bit);
+        public static Register R8 => new Register(nameof(R8), 0x08, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the tenth general purpose register.
         /// </summary>
-        public static Register R9 => new Register(nameof(R9), 0x09, RegisterType.GeneralPurpose64Bit);
+        public static Register R9 => new Register(nameof(R9), 0x09, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the eleventh general purpose register.
         /// </summary>
-        public static Register R10 => new Register(nameof(R10), 0x0A, RegisterType.GeneralPurpose64Bit);
+        public static Register R10 => new Register(nameof(R10), 0x0A, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the twelfth general purpose register.
         /// </summary>
-        public static Register R11 => new Register(nameof(R11), 0x0B, RegisterType.GeneralPurpose64Bit);
+        public static Register R11 => new Register(nameof(R11), 0x0B, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the thirteenth general purpose register.
         /// </summary>
-        public static Register R12 => new Register(nameof(R12), 0x0C, RegisterType.GeneralPurpose64Bit);
+        public static Register R12 => new Register(nameof(R12), 0x0C, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the fourteenth general purpose register.
         /// </summary>
-        public static Register R13 => new Register(nameof(R13), 0x0D, RegisterType.GeneralPurpose64Bit);
+        public static Register R13 => new Register(nameof(R13), 0x0D, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the fifteenth general purpose register.
         /// </summary>
-        public static Register R14 => new Register(nameof(R14), 0x0E, RegisterType.GeneralPurpose64Bit);
+        public static Register R14 => new Register(nameof(R14), 0x0E, RegisterType.GP64);
 
         /// <summary>
         /// The lower 64-bits of the sixteenth general purpose register.
         /// </summary>
-        public static Register R15 => new Register(nameof(R15), 0x0F, RegisterType.GeneralPurpose64Bit);
+        public static Register R15 => new Register(nameof(R15), 0x0F, RegisterType.GP64);
 
         #endregion
 
