@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using MinAsm.Operands;
+using MinAsm.Encoding;
 
 namespace MinAsm
 {
@@ -26,6 +27,16 @@ namespace MinAsm
             asm.RetN(0x2255);
 
             Console.WriteLine(string.Join("\n", asm));
+
+            Console.WriteLine("***  SIB  ***");
+
+            Console.WriteLine((Sib)2);
+            Console.WriteLine((Sib)0x55);
+
+            Console.WriteLine("***  ModRM  ***");
+
+            Console.WriteLine((ModRM)2);
+            Console.WriteLine((ModRM)0x55);
 
             Console.ReadLine();
         }
