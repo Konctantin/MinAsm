@@ -10,14 +10,8 @@ namespace MinAsm.Encoding
         byte m_rm  = 0,
              m_reg = 0,
              m_mod = 0;
-        bool hasData = false;
 
-        public ModRM(bool hasData = false)
-        {
-            this.hasData = hasData;
-        }
-
-        public ModRM(byte value) : this(
+        public ModRM(byte value = 0) : this(
                 (byte)((value     ) & 7),
                 (byte)((value >> 3) & 7),
                 (byte)((value >> 6) & 3))
@@ -33,7 +27,6 @@ namespace MinAsm.Encoding
         /// The purpose of the reg/opcode field is specified in the primary opcode.</param>
         /// <param name="mod">The mod field combines with the r/m field to form 32 possible values: eight registers and 24 addressing modes.</param>
         public ModRM(byte rm, byte reg, byte mod)
-            :this(true)
         {
             if (rm > 7)
                 throw new ArgumentOutOfRangeException(nameof(rm));
@@ -62,7 +55,6 @@ namespace MinAsm.Encoding
                     throw new ArgumentOutOfRangeException(nameof(value));
 
                 m_rm = value;
-                hasData = true;
             }
         }
 
@@ -79,7 +71,6 @@ namespace MinAsm.Encoding
                     throw new ArgumentOutOfRangeException(nameof(value));
 
                 m_reg = value;
-                hasData = true;
             }
         }
 
@@ -95,7 +86,6 @@ namespace MinAsm.Encoding
                     throw new ArgumentOutOfRangeException(nameof(value));
 
                 m_mod = value;
-                hasData = true;
             }
         }
 
@@ -127,7 +117,7 @@ namespace MinAsm.Encoding
         /// <summary>
         ///
         /// </summary>
-        public byte Raw => (byte)((m_mod << 6) | ((m_reg & 7) << 3) | (m_rm & 7));
+        byte Raw => (byte)((m_mod << 6) | ((m_reg & 7) << 3) | (m_rm & 7));
 
         /// <summary>
         ///
@@ -137,17 +127,12 @@ namespace MinAsm.Encoding
         /// <summary>
         ///
         /// </summary>
-        public bool HasData => hasData;
-
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            if (obj != null && obj is Sib)
-                return (obj as Sib).Raw == Raw;
+            if (obj != null && obj is ModRM)
+                return (obj as ModRM).Raw == Raw;
             return false;
         }
 
@@ -184,5 +169,11 @@ namespace MinAsm.Encoding
         /// </summary>
         /// <param name="value"></param>
         public static explicit operator byte(ModRM value) => value.Raw;
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
+        public static explicit operator ModRM(byte value) => new ModRM(value);
     }
 }

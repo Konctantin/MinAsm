@@ -10,14 +10,8 @@ namespace MinAsm.Encoding
         byte m_b = 0,
              m_i = 0;
         Scale m_s = Scale.None;
-        bool hasData = false;
 
-        public Sib(bool hasData = false)
-        {
-            this.hasData = hasData;
-        }
-
-        public Sib(byte value) : this(
+        public Sib(byte value = 0) : this(
                 (byte)((value     ) & 7),
                 (byte)((value >> 3) & 7),
                 (byte)((value >> 6) & 3))
@@ -31,7 +25,6 @@ namespace MinAsm.Encoding
         /// <param name="i">The index field specifies the register number of the index register.</param>
         /// <param name="s">The scale field specifies the scale factor.</param>
         public Sib(byte b, byte i, byte s)
-            : this(true)
         {
             if (b > 7)
                 throw new ArgumentOutOfRangeException(nameof(b));
@@ -59,7 +52,6 @@ namespace MinAsm.Encoding
                     throw new ArgumentOutOfRangeException(nameof(value));
 
                 m_b = value;
-                hasData = true;
             }
         }
 
@@ -75,7 +67,6 @@ namespace MinAsm.Encoding
                     throw new ArgumentOutOfRangeException(nameof(value));
 
                 m_i = value;
-                hasData = true;
             }
         }
 
@@ -91,7 +82,6 @@ namespace MinAsm.Encoding
                     throw new ArgumentOutOfRangeException(nameof(value));
 
                 m_s = value;
-                hasData = true;
             }
         }
 
@@ -108,17 +98,12 @@ namespace MinAsm.Encoding
         /// <summary>
         ///
         /// </summary>
-        public byte Raw => (byte)(((byte)m_s << 6) | ((m_i & 7) << 3) | (m_b & 7));
+        byte Raw => (byte)(((byte)m_s << 6) | ((m_i & 7) << 3) | (m_b & 7));
 
         /// <summary>
         ///
         /// </summary>
         public bool IsEmpty => m_s == 0 && m_i == 0 && m_b == 0;
-
-        /// <summary>
-        ///
-        /// </summary>
-        public bool HasData => hasData;
 
         /// <summary>
         ///
@@ -142,7 +127,7 @@ namespace MinAsm.Encoding
         ///
         /// </summary>
         /// <returns></returns>
-        public override string ToString() => $"Base: {Base:X2} Index: {Index:X2} Scale: {Scale:X2}";
+        public override string ToString() => $"Base: {Base:X2} Index: {Index:X2} Scale: {(byte)Scale:X2}";
 
         /// <summary>
         ///
@@ -165,5 +150,11 @@ namespace MinAsm.Encoding
         /// </summary>
         /// <param name="value"></param>
         public static explicit operator byte(Sib value) => value.Raw;
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
+        public static explicit operator Sib(byte value) => new Sib(value);
     }
 }
