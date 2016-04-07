@@ -10,7 +10,6 @@ namespace MinAsm.Operands
         {
         }
 
-        //public override DataSize Size { get; set; }
         public override int Construct(Context context, Instruction instruction)
         {
             throw new NotImplementedException();

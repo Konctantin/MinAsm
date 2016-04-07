@@ -7,6 +7,8 @@ namespace MinAsm.Operands
     {
         long m_value;
 
+        #region Constructors
+
         public Imm()
             : this(0L, DataSize.None)
         {
@@ -48,6 +50,8 @@ namespace MinAsm.Operands
             m_value = value;
         }
 
+        #endregion
+
         public override int Construct(Context context, Instruction instruction)
         {
             // todo: more variants
@@ -73,5 +77,17 @@ namespace MinAsm.Operands
                 }
             }
         }
+
+        #region Operators
+
+        public static explicit operator byte(Imm imm)   => (byte)imm.m_value;
+        public static explicit operator sbyte(Imm imm)  => (sbyte)imm.m_value;
+        public static explicit operator short(Imm imm)  => (short)imm.m_value;
+        public static explicit operator ushort(Imm imm) => (ushort)imm.m_value;
+        public static explicit operator int(Imm imm)    => (int)imm.m_value;
+        public static explicit operator uint(Imm imm)   => (uint)imm.m_value;
+        public static explicit operator long(Imm imm)   => imm.m_value;
+
+        #endregion
     }
 }
