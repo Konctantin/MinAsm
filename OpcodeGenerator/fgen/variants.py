@@ -1,0 +1,780 @@
+instructions = [
+    ["aaa"              , "<ax>"                                     , "NONE" , "37"                               , "X86 OF=U SF=U ZF=U AF=W PF=U CF=W"],
+    ["aas"              , "<ax>"                                     , "NONE" , "3F"                               , "X86 OF=U SF=U ZF=U AF=W PF=U CF=W"],
+    ["aad"              , "<ax>, ib"                                 , "I"    , "D5 ib"                            , "X86 OF=U SF=W ZF=W AF=U PF=W CF=U"],
+    ["aam"              , "<ax>, ib"                                 , "I"    , "D4 ib"                            , "X86 OF=U SF=W ZF=W AF=U PF=W CF=U"],
+
+    ["adc"              , "al, ib"                                   , "I"    , "14 ib"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "ax, iw"                                   , "I"    , "66 15 iw"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "eax, id"                                  , "I"    , "15 id"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "rax, id"                                  , "I"    , "REX.W 15 id"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+
+    ["adc"              , "r8/m8, ib"                                , "MI"   , "80 /2 ib"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "r16/m16, iw"                              , "MI"   , "66 81 /2 iw"                      , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "r32/m32, id"                              , "MI"   , "81 /2 id"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "r64/m64, id"                              , "MI"   , "REX.W 81 /2 id"                   , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+
+    ["adc"              , "r16/m16, ib"                              , "MI"   , "66 83 /2 ib"                      , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "r32/m32, ib"                              , "MI"   , "83 /2 ib"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "r64/m64, ib"                              , "MI"   , "REX.W 83 /2 ib"                   , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+
+    ["adc"              , "r8/m8, r8"                                , "MR"   , "10 /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "r16/m16, r16"                             , "MR"   , "66 11 /r"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "r32/m32, r32"                             , "MR"   , "11 /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "r64/m64, r64"                             , "MR"   , "REX.W 11 /r"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+
+    ["adc"              , "r8, r8/m8"                                , "RM"   , "12 /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "r16, r16/m16"                             , "RM"   , "66 13 /r"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "r32, r32/m32"                             , "RM"   , "13 /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["adc"              , "r64, r64/m64"                             , "RM"   , "REX.W 13 /r"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+
+    ["add"              , "al, ib"                                   , "I"    , "04 ib"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "ax, iw"                                   , "I"    , "66 05 iw"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "eax, id"                                  , "I"    , "05 id"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "rax, id"                                  , "I"    , "REX.W 05 id"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["add"              , "r8/m8, ib"                                , "MI"   , "80 /0 ib"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "r16/m16, iw"                              , "MI"   , "66 81 /0 iw"                      , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "r32/m32, id"                              , "MI"   , "81 /0 id"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "r64/m64, id"                              , "MI"   , "REX.W 81 /0 id"                   , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["add"              , "r16/m16, ib"                              , "MI"   , "66 83 /0 ib"                      , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "r32/m32, ib"                              , "MI"   , "83 /0 ib"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "r64/m64, ib"                              , "MI"   , "REX.W 83 /0 ib"                   , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["add"              , "r8/m8, r8"                                , "MR"   , "00 /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "r16/m16, r16"                             , "MR"   , "66 01 /r"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "r32/m32, r32"                             , "MR"   , "01 /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "r64/m64, r64"                             , "MR"   , "REX.W 01 /r"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["add"              , "r8, r8/m8"                                , "RM"   , "02 /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "r16, r16/m16"                             , "RM"   , "66 03 /r"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "r32, r32/m32"                             , "RM"   , "03 /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["add"              , "r64, r64/m64"                             , "RM"   , "REX.W 03 /r"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["and"              , "al, ib"                                   , "I"    , "24 ib"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "ax, iw"                                   , "I"    , "66 25 iw"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "eax, id"                                  , "I"    , "25 id"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "rax, id"                                  , "I"    , "REX.W 25 id"                      , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["and"              , "r8/m8, ib"                                , "MI"   , "80 /4 ib"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "r16/m16, iw"                              , "MI"   , "66 81 /4 iw"                      , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "r32/m32, id"                              , "MI"   , "81 /4 id"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "r64/m64, id"                              , "MI"   , "REX.W 81 /4 id"                   , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["and"              , "r16/m16, ib"                              , "MI"   , "66 83 /4 ib"                      , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "r32/m32, ib"                              , "MI"   , "83 /4 ib"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "r64/m64, ib"                              , "MI"   , "REX.W 83 /4 ib"                   , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["and"              , "r8/m8, r8"                                , "MR"   , "20 /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "r16/m16, r16"                             , "MR"   , "66 21 /r"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "r32/m32, r32"                             , "MR"   , "21 /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "r64/m64, r64"                             , "MR"   , "REX.W 21 /r"                      , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["and"              , "r8, r8/m8"                                , "RM"   , "22 /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "r16, r16/m16"                             , "RM"   , "66 23 /r"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "r32, r32/m32"                             , "RM"   , "23 /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["and"              , "r64, r64/m64"                             , "RM"   , "REX.W 23 /r"                      , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["bsf"              , "r16, r16/m16"                             , "RM"   , "66 0F BC /r"                      , "ANY OF=U SF=U ZF=W AF=U PF=U CF=U"],
+    ["bsf"              , "r32, r32/m32"                             , "RM"   , "0F BC /r"                         , "ANY OF=U SF=U ZF=W AF=U PF=U CF=U"],
+    ["bsf"              , "r64, r64/m64"                             , "RM"   , "REX.W 0F BC /r"                   , "X64 OF=U SF=U ZF=W AF=U PF=U CF=U"],
+
+    ["bsr"              , "r16, r16/m16"                             , "RM"   , "66 0F BD /r"                      , "ANY OF=U SF=U ZF=W AF=U PF=U CF=U"],
+    ["bsr"              , "r32, r32/m32"                             , "RM"   , "0F BD /r"                         , "ANY OF=U SF=U ZF=W AF=U PF=U CF=U"],
+    ["bsr"              , "r64, r64/m64"                             , "RM"   , "REX.W 0F BD /r"                   , "X64 OF=U SF=U ZF=W AF=U PF=U CF=U"],
+
+    ["bswap"            , "r32"                                      , "O"    , "0F C8+r"                          , "ANY"],
+    ["bswap"            , "r64"                                      , "O"    , "REX.W 0F C8+r"                    , "X64"],
+
+    ["bt"               , "R:r16/m16, r16"                           , "MR"   , "66 0F A3 /r"                      , "ANY OF=U SF=U AF=U PF=U CF=W"],
+    ["bt"               , "R:r32/m32, r32"                           , "MR"   , "0F A3 /r"                         , "ANY OF=U SF=U AF=U PF=U CF=W"],
+    ["bt"               , "R:r64/m64, r64"                           , "MR"   , "REX.W 0F A3 /r"                   , "X64 OF=U SF=U AF=U PF=U CF=W"],
+
+    ["bt"               , "R:r16/m16, ib"                            , "MI"   , "66 0F BA /4 ib"                   , "ANY OF=U SF=U AF=U PF=U CF=W"],
+    ["bt"               , "R:r32/m32, ib"                            , "MI"   , "0F BA /4 ib"                      , "ANY OF=U SF=U AF=U PF=U CF=W"],
+    ["bt"               , "R:r64/m64, ib"                            , "MI"   , "REX.W 0F BA /4 ib"                , "X64 OF=U SF=U AF=U PF=U CF=W"],
+
+    ["btc"              , "r16/m16, r16"                             , "MR"   , "66 0F BB /r"                      , "ANY LOCK OF=U SF=U AF=U PF=U CF=W"],
+    ["btc"              , "r32/m32, r32"                             , "MR"   , "0F BB /r"                         , "ANY LOCK OF=U SF=U AF=U PF=U CF=W"],
+    ["btc"              , "r64/m64, r64"                             , "MR"   , "REX.W 0F BB /r"                   , "X64 LOCK OF=U SF=U AF=U PF=U CF=W"],
+
+    ["btc"              , "r16/m16, ib"                              , "MI"   , "66 0F BA /7 ib"                   , "ANY LOCK OF=U SF=U AF=U PF=U CF=W"],
+    ["btc"              , "r32/m32, ib"                              , "MI"   , "0F BA /7 ib"                      , "ANY LOCK OF=U SF=U AF=U PF=U CF=W"],
+    ["btc"              , "r64/m64, ib"                              , "MI"   , "REX.W 0F BA /7 ib"                , "X64 LOCK OF=U SF=U AF=U PF=U CF=W"],
+
+    ["btr"              , "r16/m16, r16"                             , "MR"   , "66 0F B3 /r"                      , "ANY LOCK OF=U SF=U AF=U PF=U CF=W"],
+    ["btr"              , "r32/m32, r32"                             , "MR"   , "0F B3 /r"                         , "ANY LOCK OF=U SF=U AF=U PF=U CF=W"],
+    ["btr"              , "r64/m64, r64"                             , "MR"   , "REX.W 0F B3 /r"                   , "X64 LOCK OF=U SF=U AF=U PF=U CF=W"],
+
+    ["btr"              , "r16/m16, ib"                              , "MI"   , "66 0F BA /6 ib"                   , "ANY LOCK OF=U SF=U AF=U PF=U CF=W"],
+    ["btr"              , "r32/m32, ib"                              , "MI"   , "0F BA /6 ib"                      , "ANY LOCK OF=U SF=U AF=U PF=U CF=W"],
+    ["btr"              , "r64/m64, ib"                              , "MI"   , "REX.W 0F BA /6 ib"                , "X64 LOCK OF=U SF=U AF=U PF=U CF=W"],
+
+    ["bts"              , "r16/m16, r16"                             , "MR"   , "66 0F AB /r"                      , "ANY LOCK OF=U SF=U AF=U PF=U CF=W"],
+    ["bts"              , "r32/m32, r32"                             , "MR"   , "0F AB /r"                         , "ANY LOCK OF=U SF=U AF=U PF=U CF=W"],
+    ["bts"              , "r64/m64, r64"                             , "MR"   , "REX.W 0F AB /r"                   , "X64 LOCK OF=U SF=U AF=U PF=U CF=W"],
+
+    ["bts"              , "r16/m16, ib"                              , "MI"   , "66 0F BA /5 ib"                   , "ANY LOCK OF=U SF=U AF=U PF=U CF=W"],
+    ["bts"              , "r32/m32, ib"                              , "MI"   , "0F BA /5 ib"                      , "ANY LOCK OF=U SF=U AF=U PF=U CF=W"],
+    ["bts"              , "r64/m64, ib"                              , "MI"   , "REX.W 0F BA /5 ib"                , "X64 LOCK OF=U SF=U AF=U PF=U CF=W"],
+
+    ["call"             , "rel32"                                    , "M"    , "E8 cd"                            , "ANY VOLATILE OF=U SF=U ZF=U AF=U PF=U CF=U"],
+    ["call"             , "R:rxx/mxx"                                , "M"    , "FF /2"                            , "ANY VOLATILE OF=U SF=U ZF=U AF=U PF=U CF=U"],
+
+    ["cbw"              , "<ax>"                                     , "NONE" , "66 98"                            , "ANY"],
+    ["cwde"             , "<eax>"                                    , "NONE" , "98"                               , "ANY"],
+    ["cdqe"             , "<rax>"                                    , "NONE" , "REX.W 98"                         , "X64"],
+
+    ["cwd"              , "W:<dx>, <ax>"                             , "NONE" , "66 99"                            , "ANY"],
+    ["cdq"              , "W:<edx>, <eax>"                           , "NONE" , "99"                               , "ANY"],
+    ["cqo"              , "W:<rdx>, <rax>"                           , "NONE" , "REX.W 99"                         , "X64"],
+
+    ["clac"             , ""                                         , "NONE" , "0F 01 CA"                         , "ANY VOLATILE SMAP AC=0"],
+    ["clc"              , ""                                         , "NONE" , "F8"                               , "ANY CF=0"],
+    ["cld"              , ""                                         , "NONE" , "FC"                               , "ANY DF=0"],
+    ["cmc"              , ""                                         , "NONE" , "F5"                               , "ANY CF=X"],
+
+    ["cmovo"            , "r16, r16/m16"                             , "RM"   , "66 0F 40 /r"                      , "ANY CMOV OF=R"],
+    ["cmovo"            , "r32, r32/m32"                             , "RM"   , "0F 40 /r"                         , "ANY CMOV OF=R"],
+    ["cmovo"            , "r64, r64/m64"                             , "RM"   , "REX.W 0F 40 /r"                   , "X64 CMOV OF=R"],
+    ["cmovno"           , "r16, r16/m16"                             , "RM"   , "66 0F 41 /r"                      , "ANY CMOV OF=R"],
+    ["cmovno"           , "r32, r32/m32"                             , "RM"   , "0F 41 /r"                         , "ANY CMOV OF=R"],
+    ["cmovno"           , "r64, r64/m64"                             , "RM"   , "REX.W 0F 41 /r"                   , "X64 CMOV OF=R"],
+    ["cmovb/cmovnae"    , "r16, r16/m16"                             , "RM"   , "66 0F 42 /r"                      , "ANY CMOV CF=R"],
+    ["cmovb/cmovnae"    , "r32, r32/m32"                             , "RM"   , "0F 42 /r"                         , "ANY CMOV CF=R"],
+    ["cmovb/cmovnae"    , "r64, r64/m64"                             , "RM"   , "REX.W 0F 42 /r"                   , "X64 CMOV CF=R"],
+    ["cmovae/cmovnb"    , "r16, r16/m16"                             , "RM"   , "66 0F 43 /r"                      , "ANY CMOV CF=R"],
+    ["cmovae/cmovnb"    , "r32, r32/m32"                             , "RM"   , "0F 43 /r"                         , "ANY CMOV CF=R"],
+    ["cmovae/cmovnb"    , "r64, r64/m64"                             , "RM"   , "REX.W 0F 43 /r"                   , "X64 CMOV CF=R"],
+    ["cmove/cmovz"      , "r16, r16/m16"                             , "RM"   , "66 0F 44 /r"                      , "ANY CMOV ZF=R"],
+    ["cmove/cmovz"      , "r32, r32/m32"                             , "RM"   , "0F 44 /r"                         , "ANY CMOV ZF=R"],
+    ["cmove/cmovz"      , "r64, r64/m64"                             , "RM"   , "REX.W 0F 44 /r"                   , "X64 CMOV ZF=R"],
+    ["cmovne/cmovnz"    , "r16, r16/m16"                             , "RM"   , "66 0F 45 /r"                      , "ANY CMOV ZF=R"],
+    ["cmovne/cmovnz"    , "r32, r32/m32"                             , "RM"   , "0F 45 /r"                         , "ANY CMOV ZF=R"],
+    ["cmovne/cmovnz"    , "r64, r64/m64"                             , "RM"   , "REX.W 0F 45 /r"                   , "X64 CMOV ZF=R"],
+    ["cmovbe/cmovna"    , "r16, r16/m16"                             , "RM"   , "66 0F 46 /r"                      , "ANY CMOV CF=R ZF=R"],
+    ["cmovbe/cmovna"    , "r32, r32/m32"                             , "RM"   , "0F 46 /r"                         , "ANY CMOV CF=R ZF=R"],
+    ["cmovbe/cmovna"    , "r64, r64/m64"                             , "RM"   , "REX.W 0F 46 /r"                   , "X64 CMOV CF=R ZF=R"],
+    ["cmova/cmovnbe"    , "r16, r16/m16"                             , "RM"   , "66 0F 47 /r"                      , "ANY CMOV CF=R ZF=R"],
+    ["cmova/cmovnbe"    , "r32, r32/m32"                             , "RM"   , "0F 47 /r"                         , "ANY CMOV CF=R ZF=R"],
+    ["cmova/cmovnbe"    , "r64, r64/m64"                             , "RM"   , "REX.W 0F 47 /r"                   , "X64 CMOV CF=R ZF=R"],
+    ["cmovs"            , "r16, r16/m16"                             , "RM"   , "66 0F 48 /r"                      , "ANY CMOV SF=R"],
+    ["cmovs"            , "r32, r32/m32"                             , "RM"   , "0F 48 /r"                         , "ANY CMOV SF=R"],
+    ["cmovs"            , "r64, r64/m64"                             , "RM"   , "REX.W 0F 48 /r"                   , "X64 CMOV SF=R"],
+    ["cmovns"           , "r16, r16/m16"                             , "RM"   , "66 0F 49 /r"                      , "ANY CMOV SF=R"],
+    ["cmovns"           , "r32, r32/m32"                             , "RM"   , "0F 49 /r"                         , "ANY CMOV SF=R"],
+    ["cmovns"           , "r64, r64/m64"                             , "RM"   , "REX.W 0F 49 /r"                   , "X64 CMOV SF=R"],
+    ["cmovp/cmovpe"     , "r16, r16/m16"                             , "RM"   , "66 0F 4A /r"                      , "ANY CMOV PF=R"],
+    ["cmovp/cmovpe"     , "r32, r32/m32"                             , "RM"   , "0F 4A /r"                         , "ANY CMOV PF=R"],
+    ["cmovp/cmovpe"     , "r64, r64/m64"                             , "RM"   , "REX.W 0F 4A /r"                   , "X64 CMOV PF=R"],
+    ["cmovnp/cmovpo"    , "r16, r16/m16"                             , "RM"   , "66 0F 4B /r"                      , "ANY CMOV PF=R"],
+    ["cmovnp/cmovpo"    , "r32, r32/m32"                             , "RM"   , "0F 4B /r"                         , "ANY CMOV PF=R"],
+    ["cmovnp/cmovpo"    , "r64, r64/m64"                             , "RM"   , "REX.W 0F 4B /r"                   , "X64 CMOV PF=R"],
+    ["cmovl/cmovnge"    , "r16, r16/m16"                             , "RM"   , "66 0F 4C /r"                      , "ANY CMOV SF=R OF=R"],
+    ["cmovl/cmovnge"    , "r32, r32/m32"                             , "RM"   , "0F 4C /r"                         , "ANY CMOV SF=R OF=R"],
+    ["cmovl/cmovnge"    , "r64, r64/m64"                             , "RM"   , "REX.W 0F 4C /r"                   , "X64 CMOV SF=R OF=R"],
+    ["cmovge/cmovnl"    , "r16, r16/m16"                             , "RM"   , "66 0F 4D /r"                      , "ANY CMOV SF=R OF=R"],
+    ["cmovge/cmovnl"    , "r32, r32/m32"                             , "RM"   , "0F 4D /r"                         , "ANY CMOV SF=R OF=R"],
+    ["cmovge/cmovnl"    , "r64, r64/m64"                             , "RM"   , "REX.W 0F 4D /r"                   , "X64 CMOV SF=R OF=R"],
+    ["cmovle/cmovng"    , "r16, r16/m16"                             , "RM"   , "66 0F 4E /r"                      , "ANY CMOV ZF=R SF=R OF=R"],
+    ["cmovle/cmovng"    , "r32, r32/m32"                             , "RM"   , "0F 4E /r"                         , "ANY CMOV ZF=R SF=R OF=R"],
+    ["cmovle/cmovng"    , "r64, r64/m64"                             , "RM"   , "REX.W 0F 4E /r"                   , "X64 CMOV ZF=R SF=R OF=R"],
+    ["cmovg/cmovnle"    , "r16, r16/m16"                             , "RM"   , "66 0F 4F /r"                      , "ANY CMOV ZF=R SF=R OF=R"],
+    ["cmovg/cmovnle"    , "r32, r32/m32"                             , "RM"   , "0F 4F /r"                         , "ANY CMOV ZF=R SF=R OF=R"],
+    ["cmovg/cmovnle"    , "r64, r64/m64"                             , "RM"   , "REX.W 0F 4F /r"                   , "X64 CMOV ZF=R SF=R OF=R"],
+
+    ["cmp"              , "R:al, ib"                                 , "I"    , "3C ib"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:ax, iw"                                 , "I"    , "66 3D iw"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:eax, id"                                , "I"    , "3D id"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:rax, id"                                , "I"    , "REX.W 3D id"                      , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["cmp"              , "R:r8/m8, ib"                              , "MI"   , "80 /7 ib"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:r16/m16, iw"                            , "MI"   , "66 81 /7 iw"                      , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:r32/m32, id"                            , "MI"   , "81 /7 id"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:r64/m64, id"                            , "MI"   , "REX.W 81 /7 id"                   , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["cmp"              , "R:r16/m16, ib"                            , "MI"   , "66 83 /7 ib"                      , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:r32/m32, ib"                            , "MI"   , "83 /7 ib"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:r64/m64, ib"                            , "MI"   , "REX.W 83 /7 ib"                   , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["cmp"              , "R:r8/m8, r8"                              , "MR"   , "38 /r"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:r16/m16, r16"                           , "MR"   , "66 39 /r"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:r32/m32, r32"                           , "MR"   , "39 /r"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:r64/m64, r64"                           , "MR"   , "REX.W 39 /r"                      , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["cmp"              , "R:r8, r8/m8"                              , "RM"   , "3A /r"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:r16, r16/m16"                           , "RM"   , "66 3B /r"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:r32, r32/m32"                           , "RM"   , "3B /r"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmp"              , "R:r64, r64/m64"                           , "RM"   , "REX.W 3B /r"                      , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["cmpsb"            , "X:<ds:zsi>, X:<es:zdi>"                   , "NONE" , "A6"                               , "ANY REP OF=W SF=W ZF=W AF=W PF=W CF=W DF=R"],
+    ["cmpsw"            , "X:<ds:zsi>, X:<es:zdi>"                   , "NONE" , "66 A7"                            , "ANY REP OF=W SF=W ZF=W AF=W PF=W CF=W DF=R"],
+    ["cmpsd"            , "X:<ds:zsi>, X:<es:zdi>"                   , "NONE" , "A7"                               , "ANY REP OF=W SF=W ZF=W AF=W PF=W CF=W DF=R"],
+    ["cmpsq"            , "X:<ds:zsi>, X:<es:zdi>"                   , "NONE" , "REX.W A7"                         , "X64 REP OF=W SF=W ZF=W AF=W PF=W CF=W DF=R"],
+
+    ["cmpxchg"          , "r8/m8, r8, <al>"                          , "MR"   , "0F B0 /r"                         , "ANY I486 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmpxchg"          , "r16/m16, r16, <ax>"                       , "MR"   , "66 0F B1 /r"                      , "ANY I486 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmpxchg"          , "r32/m32, r32, <eax>"                      , "MR"   , "0F B1 /r"                         , "ANY I486 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["cmpxchg"          , "r64/m64, r64, <rax>"                      , "MR"   , "REX.W 0F B1 /r"                   , "X64 I486 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["cmpxchg8b"        , "X:m64, X:<edx>, X:<eax>, <ecx>, <ebx>"    , "M"    , "0F C7 /1"                         , "ANY VOLATILE CMPXCHG8B LOCK ZF=W"],
+    ["cmpxchg16b"       , "X:m128, X:<rdx>, X:<rax>, <rcx>, <rbx>"   , "M"    , "REX.W 0F C7 /1"                   , "X64 VOLATILE CMPXCHG16B LOCK ZF=W"],
+
+    ["cpuid"            , "X:<eax>, W:<ebx>, X:<ecx>, W:<edx>"       , "NONE" , "0F A2"                            , "ANY VOLATILE I486"],
+
+    ["daa"              , "<ax>"                                     , "NONE" , "27"                               , "X86 OF=U SF=W ZF=W AF=W PF=W CF=W"],
+    ["das"              , "<ax>"                                     , "NONE" , "2F"                               , "X86 OF=U SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["dec"              , "r16"                                      , "O"    , "66 48+r"                          , "X86 LOCK OF=W SF=W ZF=W AF=W PF=W"],
+    ["dec"              , "r32"                                      , "O"    , "48+r"                             , "X86 LOCK OF=W SF=W ZF=W AF=W PF=W"],
+    ["dec"              , "r8/m8"                                    , "M"    , "FE /1"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W"],
+    ["dec"              , "r16/m16"                                  , "M"    , "66 FF /1"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W"],
+    ["dec"              , "r32/m32"                                  , "M"    , "FF /1"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W"],
+    ["dec"              , "r64/m64"                                  , "M"    , "REX.W FF /1"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W"],
+
+    ["div"              , "X:<ax>, r8/m8"                            , "M"    , "F6 /6"                            , "ANY OF=U SF=U ZF=U AF=U PF=U CF=U"],
+    ["div"              , "X:<ax>, X:<dx>, r16/m16"                  , "M"    , "66 F7 /6"                         , "ANY OF=U SF=U ZF=U AF=U PF=U CF=U"],
+    ["div"              , "X:<eax>, X:<edx>, r32/m32"                , "M"    , "F7 /6"                            , "ANY OF=U SF=U ZF=U AF=U PF=U CF=U"],
+    ["div"              , "X:<rax>, X:<rdx>, r64/m64"                , "M"    , "REX.W F7 /6"                      , "X64 OF=U SF=U ZF=U AF=U PF=U CF=U"],
+
+    ["enter"            , "iw, ib"                                   , "II"   , "C8 iw ib"                         , "ANY VOLATILE"],
+
+    ["idiv"             , "X:<ax>, r8/m8"                            , "M"    , "F6 /7"                            , "ANY OF=U SF=U ZF=U AF=U PF=U CF=U"],
+    ["idiv"             , "X:<dx>, X:<ax>, r16/m16"                  , "M"    , "66 F7 /7"                         , "ANY OF=U SF=U ZF=U AF=U PF=U CF=U"],
+    ["idiv"             , "X:<edx>, X:<eax>, r32/m32"                , "M"    , "F7 /7"                            , "ANY OF=U SF=U ZF=U AF=U PF=U CF=U"],
+    ["idiv"             , "X:<rdx>, X:<rax>, r64/m64"                , "M"    , "REX.W F7 /7"                      , "X64 OF=U SF=U ZF=U AF=U PF=U CF=U"],
+
+    ["imul"             , "X:<ax>, r8/m8"                            , "M"    , "F6 /5"                            , "ANY OF=W SF=W ZF=U AF=U PF=U CF=W"],
+    ["imul"             , "W:<dx>, X:<ax>, r16/m16"                  , "M"    , "66 F7 /5"                         , "ANY OF=W SF=W ZF=U AF=U PF=U CF=W"],
+    ["imul"             , "W:<edx>, X:<eax>, r32/m32"                , "M"    , "F7 /5"                            , "ANY OF=W SF=W ZF=U AF=U PF=U CF=W"],
+    ["imul"             , "W:<rdx>, X:<rax>, r64/m64"                , "M"    , "REX.W F7 /5"                      , "X64 OF=W SF=W ZF=U AF=U PF=U CF=W"],
+    ["imul"             , "r16, r16/m16"                             , "RM"   , "66 0F AF /r"                      , "ANY OF=W SF=W ZF=U AF=U PF=U CF=W"],
+    ["imul"             , "r32, r32/m32"                             , "RM"   , "0F AF /r"                         , "ANY OF=W SF=W ZF=U AF=U PF=U CF=W"],
+    ["imul"             , "r64, r64/m64"                             , "RM"   , "REX.W 0F AF /r"                   , "X64 OF=W SF=W ZF=U AF=U PF=U CF=W"],
+    ["imul"             , "W:r16, r16/m16, ib"                       , "RMI"  , "66 6B /r ib"                      , "ANY OF=W SF=W ZF=U AF=U PF=U CF=W"],
+    ["imul"             , "W:r32, r32/m32, ib"                       , "RMI"  , "6B /r ib"                         , "ANY OF=W SF=W ZF=U AF=U PF=U CF=W"],
+    ["imul"             , "W:r64, r64/m64, ib"                       , "RMI"  , "REX.W 6B /r ib"                   , "X64 OF=W SF=W ZF=U AF=U PF=U CF=W"],
+    ["imul"             , "W:r16, r16/m16, iw"                       , "RMI"  , "66 69 /r iw"                      , "ANY OF=W SF=W ZF=U AF=U PF=U CF=W"],
+    ["imul"             , "W:r32, r32/m32, id"                       , "RMI"  , "69 /r id"                         , "ANY OF=W SF=W ZF=U AF=U PF=U CF=W"],
+    ["imul"             , "W:r64, r64/m64, id"                       , "RMI"  , "REX.W 69 /r id"                   , "X64 OF=W SF=W ZF=U AF=U PF=U CF=W"],
+
+    ["inc"              , "r16"                                      , "O"    , "66 40+r"                          , "X86 LOCK OF=W SF=W ZF=W AF=W PF=W"],
+    ["inc"              , "r32"                                      , "O"    , "40+r"                             , "X86 LOCK OF=W SF=W ZF=W AF=W PF=W"],
+    ["inc"              , "r8/m8"                                    , "M"    , "FE /0"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W"],
+    ["inc"              , "r16/m16"                                  , "M"    , "66 FF /0"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W"],
+    ["inc"              , "r32/m32"                                  , "M"    , "FF /0"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W"],
+    ["inc"              , "r64/m64"                                  , "M"    , "REX.W FF /0"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W"],
+
+    ["in"               , "W:al, ib"                                 , "I"    , "E4 ib"                            , "ANY VOLATILE"],
+    ["in"               , "W:ax, ib"                                 , "I"    , "66 E5 ib"                         , "ANY VOLATILE"],
+    ["in"               , "W:eax, ib"                                , "I"    , "E5 ib"                            , "ANY VOLATILE"],
+    ["in"               , "W:al, dx"                                 , "NONE" , "EC"                               , "ANY VOLATILE"],
+    ["in"               , "W:ax, dx"                                 , "NONE" , "66 ED"                            , "ANY VOLATILE"],
+    ["in"               , "W:eax, dx"                                , "NONE" , "ED"                               , "ANY VOLATILE"],
+    ["insb"             , "W:es:zdi, dx"                             , "NONE" , "6C"                               , "ANY VOLATILE REP"],
+    ["insw"             , "W:es:zdi, dx"                             , "NONE" , "66 6D"                            , "ANY VOLATILE REP"],
+    ["insd"             , "W:es:zdi, dx"                             , "NONE" , "6D"                               , "ANY VOLATILE REP"],
+
+    ["int"              , "ib"                                       , "I"    , "CD ib"                            , "ANY VOLATILE"],
+    ["int3"             , ""                                         , "NONE" , "CC"                               , "ANY VOLATILE"],
+    ["into"             , ""                                         , "NONE" , "CE"                               , "ANY VOLATILE"],
+
+    ["jo"               , "rel8"                                     , "D"    , "70 cb"                            , "ANY VOLATILE OF=R"],
+    ["jno"              , "rel8"                                     , "D"    , "71 cb"                            , "ANY VOLATILE OF=R"],
+    ["jb/jnae"          , "rel8"                                     , "D"    , "72 cb"                            , "ANY VOLATILE CF=R"],
+    ["jae/jnb"          , "rel8"                                     , "D"    , "73 cb"                            , "ANY VOLATILE CF=R"],
+    ["je/jz"            , "rel8"                                     , "D"    , "74 cb"                            , "ANY VOLATILE ZF=R"],
+    ["jne/jnz"          , "rel8"                                     , "D"    , "75 cb"                            , "ANY VOLATILE ZF=R"],
+    ["jbe/jna"          , "rel8"                                     , "D"    , "76 cb"                            , "ANY VOLATILE CF=R ZF=R"],
+    ["ja/jnbe"          , "rel8"                                     , "D"    , "77 cb"                            , "ANY VOLATILE CF=R ZF=R"],
+    ["js"               , "rel8"                                     , "D"    , "78 cb"                            , "ANY VOLATILE SF=R"],
+    ["jns"              , "rel8"                                     , "D"    , "79 cb"                            , "ANY VOLATILE SF=R"],
+    ["jp/jpe"           , "rel8"                                     , "D"    , "7A cb"                            , "ANY VOLATILE PF=R"],
+    ["jnp/jpo"          , "rel8"                                     , "D"    , "7B cb"                            , "ANY VOLATILE PF=R"],
+    ["jl/jnge"          , "rel8"                                     , "D"    , "7C cb"                            , "ANY VOLATILE SF=R OF=R"],
+    ["jge/jnl"          , "rel8"                                     , "D"    , "7D cb"                            , "ANY VOLATILE SF=R OF=R"],
+    ["jle/jng"          , "rel8"                                     , "D"    , "7E cb"                            , "ANY VOLATILE ZF=R SF=R OF=R"],
+    ["jg/jnle"          , "rel8"                                     , "D"    , "7F cb"                            , "ANY VOLATILE ZF=R SF=R OF=R"],
+
+    ["jo"               , "rel32"                                    , "D"    , "0F 80 cd"                         , "ANY VOLATILE OF=R"],
+    ["jno"              , "rel32"                                    , "D"    , "0F 81 cd"                         , "ANY VOLATILE OF=R"],
+    ["jb/jnae"          , "rel32"                                    , "D"    , "0F 82 cd"                         , "ANY VOLATILE CF=R"],
+    ["jae/jnb"          , "rel32"                                    , "D"    , "0F 83 cd"                         , "ANY VOLATILE CF=R"],
+    ["je/jz"            , "rel32"                                    , "D"    , "0F 84 cd"                         , "ANY VOLATILE ZF=R"],
+    ["jne/jnz"          , "rel32"                                    , "D"    , "0F 85 cd"                         , "ANY VOLATILE ZF=R"],
+    ["jbe/jna"          , "rel32"                                    , "D"    , "0F 86 cd"                         , "ANY VOLATILE CF=R ZF=R"],
+    ["ja/jnbe"          , "rel32"                                    , "D"    , "0F 87 cd"                         , "ANY VOLATILE CF=R ZF=R"],
+    ["js"               , "rel32"                                    , "D"    , "0F 88 cd"                         , "ANY VOLATILE SF=R"],
+    ["jns"              , "rel32"                                    , "D"    , "0F 89 cd"                         , "ANY VOLATILE SF=R"],
+    ["jp/jpe"           , "rel32"                                    , "D"    , "0F 8A cd"                         , "ANY VOLATILE PF=R"],
+    ["jnp/jpo"          , "rel32"                                    , "D"    , "0F 8B cd"                         , "ANY VOLATILE PF=R"],
+    ["jl/jnge"          , "rel32"                                    , "D"    , "0F 8C cd"                         , "ANY VOLATILE SF=R OF=R"],
+    ["jge/jnl"          , "rel32"                                    , "D"    , "0F 8D cd"                         , "ANY VOLATILE SF=R OF=R"],
+    ["jle/jng"          , "rel32"                                    , "D"    , "0F 8E cd"                         , "ANY VOLATILE ZF=R SF=R OF=R"],
+    ["jg/jnle"          , "rel32"                                    , "D"    , "0F 8F cd"                         , "ANY VOLATILE ZF=R SF=R OF=R"],
+
+    ["jcxz"             , "R:cx, rel8"                               , "D"    , "67 E3 cb"                         , "X86 VOLATILE"],
+    ["jecxz"            , "R:ecx, rel8"                              , "D"    , "E3 cb"                            , "X86 VOLATILE"],
+    ["jecxz"            , "R:ecx, rel8"                              , "D"    , "67 E3 cb"                         , "X64 VOLATILE"],
+    ["jrcxz"            , "R:rcx, rel8"                              , "D"    , "E3 cb"                            , "X64 VOLATILE"],
+    ["jzcxz"            , "R:zcx, rel8"                              , "D"    , "E3 cb"                            , "ANY VOLATILE"],
+
+    ["jmp"              , "rel8"                                     , "D"    , "EB cb"                            , "ANY VOLATILE"],
+    ["jmp"              , "rel32"                                    , "D"    , "E9 cd"                            , "ANY VOLATILE"],
+    ["jmp"              , "R:rxx/mxx"                                , "D"    , "FF /4"                            , "ANY VOLATILE"],
+
+    ["lahf"             , "W:<ah>"                                   , "NONE" , "9F"                               , "ANY VOLATILE LAHFSAHF SF=R ZF=R AF=R PF=R CF=R"],
+
+    ["lea"              , "W:r16, mem"                               , "RM"   , "67 8D /r"                         , "ANY"],
+    ["lea"              , "W:r32, mem"                               , "RM"   , "8D /r"                            , "ANY"],
+    ["lea"              , "W:r64, mem"                               , "RM"   , "REX.W 8D /r"                      , "X64"],
+
+    ["leave"            , ""                                         , "NONE" , "C9"                               , "ANY VOLATILE"],
+
+    ["lodsb"            , "W:<al>, X:<ds:zsi>"                       , "NONE" , "AC"                               , "ANY REP DF=R"],
+    ["lodsw"            , "W:<ax>, X:<ds:zsi>"                       , "NONE" , "66 AD"                            , "ANY REP DF=R"],
+    ["lodsd"            , "W:<eax>, X:<ds:zsi>"                      , "NONE" , "AD"                               , "ANY REP DF=R"],
+    ["lodsq"            , "W:<rax>, X:<ds:zsi>"                      , "NONE" , "REX.W AD"                         , "X64 REP DF=R"],
+
+    ["loop"             , "X:cx, rel8"                               , "D"    , "67 E2 cb"                         , "X86 VOLATILE"],
+    ["loop"             , "X:ecx, rel8"                              , "D"    , "E2 cb"                            , "X86 VOLATILE"],
+    ["loop"             , "X:ecx, rel8"                              , "D"    , "67 E2 cb"                         , "X64 VOLATILE"],
+    ["loop"             , "X:rcx, rel8"                              , "D"    , "E2 cb"                            , "X64 VOLATILE"],
+
+    ["loope"            , "X:cx, rel8"                               , "D"    , "67 E1 cb"                         , "X86 VOLATILE ZF=R"],
+    ["loope"            , "X:ecx, rel8"                              , "D"    , "E1 cb"                            , "X86 VOLATILE ZF=R"],
+    ["loope"            , "X:ecx, rel8"                              , "D"    , "67 E1 cb"                         , "X64 VOLATILE ZF=R"],
+    ["loope"            , "X:rcx, rel8"                              , "D"    , "E1 cb"                            , "X64 VOLATILE ZF=R"],
+
+    ["loopne"           , "X:cx, rel8"                               , "D"    , "67 E0 cb"                         , "X86 VOLATILE ZF=R"],
+    ["loopne"           , "X:ecx, rel8"                              , "D"    , "E0 cb"                            , "X86 VOLATILE ZF=R"],
+    ["loopne"           , "X:ecx, rel8"                              , "D"    , "67 E0 cb"                         , "X64 VOLATILE ZF=R"],
+    ["loopne"           , "X:rcx, rel8"                              , "D"    , "E0 cb"                            , "X64 VOLATILE ZF=R"],
+
+    ["mov"              , "W:r8/m8, r8"                              , "MR"   , "88 /r"                            , "ANY"],
+    ["mov"              , "W:r16/m16, r16"                           , "MR"   , "66 89 /r"                         , "ANY"],
+    ["mov"              , "W:r32/m32, r32"                           , "MR"   , "89 /r"                            , "ANY"],
+    ["mov"              , "W:r64/m64, r64"                           , "MR"   , "REX.W 89 /r"                      , "X64"],
+
+    ["mov"              , "W:r8, r8/m8"                              , "RM"   , "8A /r"                            , "ANY"],
+    ["mov"              , "W:r16, r16/m16"                           , "RM"   , "66 8B /r"                         , "ANY"],
+    ["mov"              , "W:r32, r32/m32"                           , "RM"   , "8B /r"                            , "ANY"],
+    ["mov"              , "W:r64, r64/m64"                           , "RM"   , "REX.W 8B /r"                      , "X64"],
+
+    ["mov"              , "W:r16/m16, sreg"                          , "MR"   , "8C /r"                            , "ANY"],
+    ["mov"              , "W:r64/m64, sreg"                          , "MR"   , "REX.W 8C /r"                      , "X64"],
+    ["mov"              , "W:sreg, r16/m16"                          , "RM"   , "8E /r"                            , "ANY"],
+    ["mov"              , "W:sreg, r64/m64"                          , "RM"   , "REX.W 8E /r"                      , "X64"],
+
+    ["mov"              , "W:al, moff8"                              , "NONE" , "A0"                               , "ANY"],
+    ["mov"              , "W:ax, moff16"                             , "NONE" , "66 A1"                            , "ANY"],
+    ["mov"              , "W:eax, moff32"                            , "NONE" , "A1"                               , "ANY"],
+    ["mov"              , "W:rax, moff64"                            , "NONE" , "REX.W A1"                         , "X64"],
+
+    ["mov"              , "W:moff8, al"                              , "NONE" , "A2"                               , "ANY"],
+    ["mov"              , "W:moff16, ax"                             , "NONE" , "66 A3"                            , "ANY"],
+    ["mov"              , "W:moff32, eax"                            , "NONE" , "A3"                               , "ANY"],
+    ["mov"              , "W:moff64, rax"                            , "NONE" , "REX.W A3"                         , "X64"],
+
+    ["mov"              , "W:r8, ib"                                 , "I"    , "B0+r ib"                          , "ANY"],
+    ["mov"              , "W:r16, iw"                                , "I"    , "66 B8+r iw"                       , "ANY"],
+    ["mov"              , "W:r32, id"                                , "I"    , "B8+r id"                          , "ANY"],
+    ["mov"              , "W:r64, iq"                                , "I"    , "REX.W B8+r iq"                    , "X64"],
+
+    ["mov"              , "W:r8/m8, ib"                              , "MI"   , "C6 /0 ib"                         , "ANY"],
+    ["mov"              , "W:r16/m16, iw"                            , "MI"   , "66 C7 /0 iw"                      , "ANY"],
+    ["mov"              , "W:r32/m32, id"                            , "MI"   , "C7 /0 id"                         , "ANY"],
+    ["mov"              , "W:r64/m64, id"                            , "MI"   , "REX.W C7 /0 id"                   , "X64"],
+
+    ["mov"              , "W:rxx, creg"                              , "MR"   , "0F 20 /r"                         , "ANY OF=U SF=U ZF=U AF=U PF=U CF=U"],
+    ["mov"              , "W:creg, rxx"                              , "RM"   , "0F 22 /r"                         , "ANY OF=U SF=U ZF=U AF=U PF=U CF=U"],
+
+    ["mov"              , "W:rxx, dreg"                              , "MR"   , "0F 21 /r"                         , "ANY OF=U SF=U ZF=U AF=U PF=U CF=U"],
+    ["mov"              , "W:dreg, rxx"                              , "RM"   , "0F 23 /r"                         , "ANY OF=U SF=U ZF=U AF=U PF=U CF=U"],
+
+    ["movsb"            , "X:<es:zdi>, X:<ds:zsi>"                   , "NONE" , "A4"                               , "ANY REP DF=R"],
+    ["movsw"            , "X:<es:zdi>, X:<ds:zsi>"                   , "NONE" , "66 A5"                            , "ANY REP DF=R"],
+    ["movsd"            , "X:<es:zdi>, X:<ds:zsi>"                   , "NONE" , "A5"                               , "ANY REP DF=R"],
+    ["movsq"            , "X:<es:zdi>, X:<ds:zsi>"                   , "NONE" , "REX.W A5"                         , "X64 REP DF=R"],
+
+    ["movsx"            , "W:r16, r8/m8"                             , "RM"   , "66 0F BE /r"                      , "ANY"],
+    ["movsx"            , "W:r32, r8/m8"                             , "RM"   , "0F BE /r"                         , "ANY"],
+    ["movsx"            , "W:r64, r8/m8"                             , "RM"   , "REX.W 0F BE /r"                   , "X64"],
+    ["movsx"            , "W:r32, r16/m16"                           , "RM"   , "0F BF /r"                         , "ANY"],
+    ["movsx"            , "W:r64, r16/m16"                           , "RM"   , "REX.W 0F BF /r"                   , "X64"],
+    ["movsxd"           , "W:r64, r32/m32"                           , "RM"   , "REX.W 63 /r"                      , "X64"],
+
+    ["movzx"            , "W:r16, r8/m8"                             , "RM"   , "66 0F B6 /r"                      , "ANY"],
+    ["movzx"            , "W:r32, r8/m8"                             , "RM"   , "0F B6 /r"                         , "ANY"],
+    ["movzx"            , "W:r64, r8/m8"                             , "RM"   , "REX.W 0F B6 /r"                   , "X64"],
+    ["movzx"            , "W:r32, r16/m16"                           , "RM"   , "0F B7 /r"                         , "ANY"],
+    ["movzx"            , "W:r64, r16/m16"                           , "RM"   , "REX.W 0F B7 /r"                   , "X64"],
+
+    ["mul"              , "X:<ax>, r8/m8"                            , "M"    , "F6 /4"                            , "ANY OF=W SF=U ZF=U AF=U PF=U CF=W"],
+    ["mul"              , "W:<dx>, X:<ax>, r16/m16"                  , "M"    , "66 F7 /4"                         , "ANY OF=W SF=U ZF=U AF=U PF=U CF=W"],
+    ["mul"              , "W:<edx>, X:<eax>, r32/m32"                , "M"    , "F7 /4"                            , "ANY OF=W SF=U ZF=U AF=U PF=U CF=W"],
+    ["mul"              , "W:<rdx>, X:<rax>, r64/m64"                , "M"    , "REX.W F7 /4"                      , "X64 OF=W SF=U ZF=U AF=U PF=U CF=W"],
+
+    ["neg"              , "r8/m8"                                    , "M"    , "F6 /3"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["neg"              , "r16/m16"                                  , "M"    , "66 F7 /3"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["neg"              , "r32/m32"                                  , "M"    , "F7 /3"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["neg"              , "r64/m64"                                  , "M"    , "REX.W F7 /3"                      , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["nop"              , ""                                         , "NONE" , "90"                               , "ANY"],
+    ["nop"              , "R:r16/m16"                                , "M"    , "66 0F 1F /0"                      , "ANY"],
+    ["nop"              , "R:r32/m32"                                , "M"    , "0F 1F /0"                         , "ANY"],
+
+    ["not"              , "r8/m8"                                    , "M"    , "F6 /2"                            , "ANY"],
+    ["not"              , "r16/m16"                                  , "M"    , "66 F7 /2"                         , "ANY"],
+    ["not"              , "r32/m32"                                  , "M"    , "F7 /2"                            , "ANY"],
+    ["not"              , "r64/m64"                                  , "M"    , "REX.W F7 /2"                      , "X64"],
+
+    ["or"               , "al, ib"                                   , "I"    , "0C ib"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "ax, iw"                                   , "I"    , "66 0D iw"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "eax, id"                                  , "I"    , "0D id"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "rax, id"                                  , "I"    , "REX.W 0D id"                      , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["or"               , "r8/m8, ib"                                , "MI"   , "80 /1 ib"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "r16/m16, iw"                              , "MI"   , "66 81 /1 iw"                      , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "r32/m32, id"                              , "MI"   , "81 /1 id"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "r64/m64, id"                              , "MI"   , "REX.W 81 /1 id"                   , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["or"               , "r16/m16, ib"                              , "MI"   , "66 83 /1 ib"                      , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "r32/m32, ib"                              , "MI"   , "83 /1 ib"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "r64/m64, ib"                              , "MI"   , "REX.W 83 /1 ib"                   , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["or"               , "r8/m8, r8"                                , "MR"   , "08 /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "r16/m16, r16"                             , "MR"   , "66 09 /r"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "r32/m32, r32"                             , "MR"   , "09 /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "r64/m64, r64"                             , "MR"   , "REX.W 09 /r"                      , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["or"               , "r8, r8/m8"                                , "RM"   , "0A /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "r16, r16/m16"                             , "RM"   , "66 0B /r"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "r32, r32/m32"                             , "RM"   , "0B /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["or"               , "r64, r64/m64"                             , "RM"   , "REX.W 0B /r"                      , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["out"              , "ib, al"                                   , "I"    , "E6 ib"                            , "ANY VOLATILE"],
+    ["out"              , "ib, ax"                                   , "I"    , "66 E7 ib"                         , "ANY VOLATILE"],
+    ["out"              , "ib, eax"                                  , "I"    , "E7 ib"                            , "ANY VOLATILE"],
+    ["out"              , "R:dx, R:al"                               , "NONE" , "EE"                               , "ANY VOLATILE"],
+    ["out"              , "R:dx, R:ax"                               , "NONE" , "66 EF"                            , "ANY VOLATILE"],
+    ["out"              , "R:dx, R:eax"                              , "NONE" , "EF"                               , "ANY VOLATILE"],
+    ["outsb"            , "R:dx, R:ds:zsi"                           , "NONE" , "6E"                               , "ANY VOLATILE REP"],
+    ["outsw"            , "R:dx, R:ds:zsi"                           , "NONE" , "66 6F"                            , "ANY VOLATILE REP"],
+    ["outsd"            , "R:dx, R:ds:zsi"                           , "NONE" , "6F"                               , "ANY VOLATILE REP"],
+
+    ["pause"            , ""                                         , "NONE" , "F3 90"                            , "ANY VOLATILE"],
+
+    ["pop"              , "W:r16/m16"                                , "M"    , "66 8F /0"                         , "ANY VOLATILE"],
+    ["pop"              , "W:rxx/mxx"                                , "M"    , "8F /0"                            , "ANY VOLATILE"],
+
+    ["pop"              , "W:r16"                                    , "O"    , "66 58+r"                          , "ANY VOLATILE"],
+    ["pop"              , "W:rxx"                                    , "O"    , "58+r"                             , "ANY VOLATILE"],
+
+    ["pop"              , "W:ds"                                     , "NONE" , "1F"                               , "X86 VOLATILE"],
+    ["pop"              , "W:es"                                     , "NONE" , "07"                               , "X86 VOLATILE"],
+    ["pop"              , "W:ss"                                     , "NONE" , "17"                               , "X86 VOLATILE"],
+    ["pop"              , "W:fs"                                     , "NONE" , "0F A1"                            , "ANY VOLATILE"],
+    ["pop"              , "W:gs"                                     , "NONE" , "0F A9"                            , "ANY VOLATILE"],
+
+    ["popa"             , ""                                         , "NONE" , "61"                               , "X86 VOLATILE"],
+    ["popf"             , ""                                         , "NONE" , "9D"                               , "ANY VOLATILE OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["push"             , "R:r16/m16"                                , "M"    , "66 FF /6"                         , "ANY VOLATILE"],
+    ["push"             , "R:rxx/mxx"                                , "M"    , "FF /6"                            , "ANY VOLATILE"],
+
+    ["push"             , "R:r16"                                    , "O"    , "66 50+r"                          , "ANY VOLATILE"],
+    ["push"             , "R:rxx"                                    , "O"    , "50+r"                             , "ANY VOLATILE"],
+
+    ["push"             , "ib"                                       , "I"    , "6A ib"                            , "ANY VOLATILE"],
+    ["push"             , "iw"                                       , "I"    , "66 68 iw"                         , "ANY VOLATILE"],
+    ["push"             , "id"                                       , "I"    , "68 id"                            , "ANY VOLATILE"],
+
+    ["push"             , "R:cs"                                     , "NONE" , "0E"                               , "X86 VOLATILE"],
+    ["push"             , "R:ss"                                     , "NONE" , "16"                               , "X86 VOLATILE"],
+    ["push"             , "R:ds"                                     , "NONE" , "1E"                               , "X86 VOLATILE"],
+    ["push"             , "R:es"                                     , "NONE" , "06"                               , "X86 VOLATILE"],
+    ["push"             , "R:fs"                                     , "NONE" , "0F A0"                            , "ANY VOLATILE"],
+    ["push"             , "R:gs"                                     , "NONE" , "0F A8"                            , "ANY VOLATILE"],
+
+    ["pusha"            , ""                                         , "NONE" , "60"                               , "X86 VOLATILE"],
+    ["pushf"            , ""                                         , "NONE" , "9C"                               , "ANY VOLATILE"],
+
+    ["rcl"              , "r8/m8, 1"                                 , "M"    , "D0 /2"                            , "ANY CF=W OF=W"],
+    ["rcl"              , "r8/m8, cl"                                , "M"    , "D2 /2"                            , "ANY CF=W OF=W"],
+    ["rcl"              , "r8/m8, ib"                                , "MI"   , "C0 /2 ib"                         , "ANY CF=W OF=W"],
+
+    ["rcl"              , "r16/m16, 1"                               , "M"    , "66 D1 /2"                         , "ANY CF=W OF=W"],
+    ["rcl"              , "r16/m16, cl"                              , "M"    , "66 D3 /2"                         , "ANY CF=W OF=W"],
+    ["rcl"              , "r16/m16, ib"                              , "MI"   , "66 C1 /2 ib"                      , "ANY CF=W OF=W"],
+
+    ["rcl"              , "r32/m32, 1"                               , "M"    , "D1 /2"                            , "ANY CF=W OF=W"],
+    ["rcl"              , "r32/m32, cl"                              , "M"    , "D3 /2"                            , "ANY CF=W OF=W"],
+    ["rcl"              , "r32/m32, ib"                              , "MI"   , "C1 /2 ib"                         , "ANY CF=W OF=W"],
+
+    ["rcl"              , "r64/m64, 1"                               , "M"    , "REX.W D1 /2"                      , "X64 CF=W OF=W"],
+    ["rcl"              , "r64/m64, cl"                              , "M"    , "REX.W D3 /2"                      , "X64 CF=W OF=W"],
+    ["rcl"              , "r64/m64, ib"                              , "MI"   , "REX.W C1 /2 ib"                   , "X64 CF=W OF=W"],
+
+    ["rcr"              , "r8/m8, 1"                                 , "M"    , "D0 /3"                            , "ANY CF=W OF=W"],
+    ["rcr"              , "r8/m8, cl"                                , "M"    , "D2 /3"                            , "ANY CF=W OF=W"],
+    ["rcr"              , "r8/m8, ib"                                , "MI"   , "C0 /3 ib"                         , "ANY CF=W OF=W"],
+
+    ["rcr"              , "r16/m16, 1"                               , "M"    , "66 D1 /3"                         , "ANY CF=W OF=W"],
+    ["rcr"              , "r16/m16, cl"                              , "M"    , "66 D3 /3"                         , "ANY CF=W OF=W"],
+    ["rcr"              , "r16/m16, ib"                              , "MI"   , "66 C1 /3 ib"                      , "ANY CF=W OF=W"],
+
+    ["rcr"              , "r32/m32, 1"                               , "M"    , "D1 /3"                            , "ANY CF=W OF=W"],
+    ["rcr"              , "r32/m32, cl"                              , "M"    , "D3 /3"                            , "ANY CF=W OF=W"],
+    ["rcr"              , "r32/m32, ib"                              , "MI"   , "C1 /3 ib"                         , "ANY CF=W OF=W"],
+
+    ["rcr"              , "r64/m64, 1"                               , "M"    , "REX.W D1 /3"                      , "X64 CF=W OF=W"],
+    ["rcr"              , "r64/m64, cl"                              , "M"    , "REX.W D3 /3"                      , "X64 CF=W OF=W"],
+    ["rcr"              , "r64/m64, ib"                              , "MI"   , "REX.W C1 /3 ib"                   , "X64 CF=W OF=W"],
+
+    ["rol"              , "r8/m8, 1"                                 , "M"    , "D0 /0"                            , "ANY CF=W OF=W"],
+    ["rol"              , "r8/m8, cl"                                , "M"    , "D2 /0"                            , "ANY CF=W OF=W"],
+    ["rol"              , "r8/m8, ib"                                , "MI"   , "C0 /0 ib"                         , "ANY CF=W OF=W"],
+
+    ["rol"              , "r16/m16, 1"                               , "M"    , "66 D1 /0"                         , "ANY CF=W OF=W"],
+    ["rol"              , "r16/m16, cl"                              , "M"    , "66 D3 /0"                         , "ANY CF=W OF=W"],
+    ["rol"              , "r16/m16, ib"                              , "MI"   , "66 C1 /0 ib"                      , "ANY CF=W OF=W"],
+
+    ["rol"              , "r32/m32, 1"                               , "M"    , "D1 /0"                            , "ANY CF=W OF=W"],
+    ["rol"              , "r32/m32, cl"                              , "M"    , "D3 /0"                            , "ANY CF=W OF=W"],
+    ["rol"              , "r32/m32, ib"                              , "MI"   , "C1 /0 ib"                         , "ANY CF=W OF=W"],
+
+    ["rol"              , "r64/m64, 1"                               , "M"    , "REX.W D1 /0"                      , "X64 CF=W OF=W"],
+    ["rol"              , "r64/m64, cl"                              , "M"    , "REX.W D3 /0"                      , "X64 CF=W OF=W"],
+    ["rol"              , "r64/m64, ib"                              , "MI"   , "REX.W C1 /0 ib"                   , "X64 CF=W OF=W"],
+
+    ["ror"              , "r8/m8, 1"                                 , "M"    , "D0 /1"                            , "ANY CF=W OF=W"],
+    ["ror"              , "r8/m8, cl"                                , "M"    , "D2 /1"                            , "ANY CF=W OF=W"],
+    ["ror"              , "r8/m8, ib"                                , "MI"   , "C0 /1 ib"                         , "ANY CF=W OF=W"],
+
+    ["ror"              , "r16/m16, 1"                               , "M"    , "66 D1 /1"                         , "ANY CF=W OF=W"],
+    ["ror"              , "r16/m16, cl"                              , "M"    , "66 D3 /1"                         , "ANY CF=W OF=W"],
+    ["ror"              , "r16/m16, ib"                              , "MI"   , "66 C1 /1 ib"                      , "ANY CF=W OF=W"],
+
+    ["ror"              , "r32/m32, 1"                               , "M"    , "D1 /1"                            , "ANY CF=W OF=W"],
+    ["ror"              , "r32/m32, cl"                              , "M"    , "D3 /1"                            , "ANY CF=W OF=W"],
+    ["ror"              , "r32/m32, ib"                              , "MI"   , "C1 /1 ib"                         , "ANY CF=W OF=W"],
+
+    ["ror"              , "r64/m64, 1"                               , "M"    , "REX.W D1 /1"                      , "X64 CF=W OF=W"],
+    ["ror"              , "r64/m64, cl"                              , "M"    , "REX.W D3 /1"                      , "X64 CF=W OF=W"],
+    ["ror"              , "r64/m64, ib"                              , "MI"   , "REX.W C1 /1 ib"                   , "X64 CF=W OF=W"],
+
+    ["ret"              , ""                                         , "NONE" , "C3"                               , "ANY"],
+    ["ret"              , "iw"                                       , "NONE" , "C2 iw"                            , "ANY"],
+
+    ["sahf"             , "R:<ah>"                                   , "NONE" , "9E"                               , "ANY VOLATILE LAHFSAHF SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["sal/shl"          , "r8/m8, 1"                                 , "M"    , "D0 /4"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sal/shl"          , "r8/m8, cl"                                , "M"    , "D2 /4"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sal/shl"          , "r8/m8, ib"                                , "MI"   , "C0 /4 ib"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["sal/shl"          , "r16/m16, 1"                               , "M"    , "66 D1 /4"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sal/shl"          , "r16/m16, cl"                              , "M"    , "66 D3 /4"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sal/shl"          , "r16/m16, ib"                              , "MI"   , "66 C1 /4 ib"                      , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["sal/shl"          , "r32/m32, 1"                               , "M"    , "D1 /4"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sal/shl"          , "r32/m32, cl"                              , "M"    , "D3 /4"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sal/shl"          , "r32/m32, ib"                              , "MI"   , "C1 /4 ib"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["sal/shl"          , "r64/m64, 1"                               , "M"    , "REX.W D1 /4"                      , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sal/shl"          , "r64/m64, cl"                              , "M"    , "REX.W D3 /4"                      , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sal/shl"          , "r64/m64, ib"                              , "MI"   , "REX.W C1 /4 ib"                   , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["sar"              , "r8/m8, 1"                                 , "M"    , "D0 /7"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sar"              , "r8/m8, cl"                                , "M"    , "D2 /7"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sar"              , "r8/m8, ib"                                , "MI"   , "C0 /7 ib"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["sar"              , "r16/m16, 1"                               , "M"    , "66 D1 /7"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sar"              , "r16/m16, cl"                              , "M"    , "66 D3 /7"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sar"              , "r16/m16, ib"                              , "MI"   , "66 C1 /7 ib"                      , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["sar"              , "r32/m32, 1"                               , "M"    , "D1 /7"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sar"              , "r32/m32, cl"                              , "M"    , "D3 /7"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sar"              , "r32/m32, ib"                              , "MI"   , "C1 /7 ib"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["sar"              , "r64/m64, 1"                               , "M"    , "REX.W D1 /7"                      , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sar"              , "r64/m64, cl"                              , "M"    , "REX.W D3 /7"                      , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sar"              , "r64/m64, ib"                              , "MI"   , "REX.W C1 /7 ib"                   , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["shr"              , "r8/m8, 1"                                 , "M"    , "D0 /5"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["shr"              , "r8/m8, cl"                                , "M"    , "D2 /5"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["shr"              , "r8/m8, ib"                                , "MI"   , "C0 /5 ib"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["shr"              , "r16/m16, 1"                               , "M"    , "66 D1 /5"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["shr"              , "r16/m16, cl"                              , "M"    , "66 D3 /5"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["shr"              , "r16/m16, ib"                              , "MI"   , "66 C1 /5 ib"                      , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["shr"              , "r32/m32, 1"                               , "M"    , "D1 /5"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["shr"              , "r32/m32, cl"                              , "M"    , "D3 /5"                            , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["shr"              , "r32/m32, ib"                              , "MI"   , "C1 /5 ib"                         , "ANY OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["shr"              , "r64/m64, 1"                               , "M"    , "REX.W D1 /5"                      , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["shr"              , "r64/m64, cl"                              , "M"    , "REX.W D3 /5"                      , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["shr"              , "r64/m64, ib"                              , "MI"   , "REX.W C1 /5 ib"                   , "X64 OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["sbb"              , "al, ib"                                   , "I"    , "1C ib"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "ax, iw"                                   , "I"    , "66 1D iw"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "eax, id"                                  , "I"    , "1D id"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "rax, id"                                  , "I"    , "REX.W 1D id"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+
+    ["sbb"              , "r8/m8, ib"                                , "MI"   , "80 /3 ib"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "r16/m16, iw"                              , "MI"   , "66 81 /3 iw"                      , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "r32/m32, id"                              , "MI"   , "81 /3 id"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "r64/m64, id"                              , "MI"   , "REX.W 81 /3 id"                   , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+
+    ["sbb"              , "r16/m16, ib"                              , "MI"   , "66 83 /3 ib"                      , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "r32/m32, ib"                              , "MI"   , "83 /3 ib"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "r64/m64, ib"                              , "MI"   , "REX.W 83 /3 ib"                   , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+
+    ["sbb"              , "r8/m8, r8"                                , "MR"   , "18 /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "r16/m16, r16"                             , "MR"   , "66 19 /r"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "r32/m32, r32"                             , "MR"   , "19 /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "r64/m64, r64"                             , "MR"   , "REX.W 19 /r"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+
+    ["sbb"              , "r8, r8/m8"                                , "RM"   , "1A /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "r16, r16/m16"                             , "RM"   , "66 1B /r"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "r32, r32/m32"                             , "RM"   , "1B /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+    ["sbb"              , "r64, r64/m64"                             , "RM"   , "REX.W 1B /r"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=X"],
+
+    ["scasb"            , "R:<al>, X:<es:zdi>"                       , "NONE" , "AE"                               , "ANY REP OF=W SF=W ZF=W AF=W PF=W CF=W DF=R"],
+    ["scasw"            , "R:<ax>, X:<es:zdi>"                       , "NONE" , "66 AF"                            , "ANY REP OF=W SF=W ZF=W AF=W PF=W CF=W DF=R"],
+    ["scasd"            , "R:<eax>, X:<es:zdi>"                      , "NONE" , "AF"                               , "ANY REP OF=W SF=W ZF=W AF=W PF=W CF=W DF=R"],
+    ["scasq"            , "R:<rax>, X:<es:zdi>"                      , "NONE" , "REX.W AF"                         , "X64 REP OF=W SF=W ZF=W AF=W PF=W CF=W DF=R"],
+
+    ["seto"             , "W:r8/m8"                                  , "M"    , "0F 90 /r"                         , "ANY OF=R"],
+    ["setno"            , "W:r8/m8"                                  , "M"    , "0F 91 /r"                         , "ANY OF=R"],
+    ["setb/setnae"      , "W:r8/m8"                                  , "M"    , "0F 92 /r"                         , "ANY CF=R"],
+    ["setae/setnb"      , "W:r8/m8"                                  , "M"    , "0F 93 /r"                         , "ANY CF=R"],
+    ["sete/setz"        , "W:r8/m8"                                  , "M"    , "0F 94 /r"                         , "ANY ZF=R"],
+    ["setne/setnz"      , "W:r8/m8"                                  , "M"    , "0F 95 /r"                         , "ANY ZF=R"],
+    ["setbe/setna"      , "W:r8/m8"                                  , "M"    , "0F 96 /r"                         , "ANY CF=R ZF=R"],
+    ["seta/setnbe"      , "W:r8/m8"                                  , "M"    , "0F 97 /r"                         , "ANY CF=R ZF=R"],
+    ["sets"             , "W:r8/m8"                                  , "M"    , "0F 98 /r"                         , "ANY SF=R"],
+    ["setns"            , "W:r8/m8"                                  , "M"    , "0F 99 /r"                         , "ANY SF=R"],
+    ["setp/setpe"       , "W:r8/m8"                                  , "M"    , "0F 9A /r"                         , "ANY PF=R"],
+    ["setnp/setpo"      , "W:r8/m8"                                  , "M"    , "0F 9B /r"                         , "ANY PF=R"],
+    ["setl/setnge"      , "W:r8/m8"                                  , "M"    , "0F 9C /r"                         , "ANY SF=R OF=R"],
+    ["setge/setnl"      , "W:r8/m8"                                  , "M"    , "0F 9D /r"                         , "ANY SF=R OF=R"],
+    ["setle/setng"      , "W:r8/m8"                                  , "M"    , "0F 9E /r"                         , "ANY ZF=R SF=R OF=R"],
+    ["setg/setnle"      , "W:r8/m8"                                  , "M"    , "0F 9F /r"                         , "ANY ZF=R SF=R OF=R"],
+
+    ["shld"             , "r16/m16, r16, ib"                         , "MRI"  , "66 0F A4 /r ib"                   , "ANY OF=W SF=W ZF=W AF=U PF=W CF=W"],
+    ["shld"             , "r16/m16, r16, cl"                         , "MR"   , "66 0F A5 /r"                      , "ANY OF=W SF=W ZF=W AF=U PF=W CF=W"],
+    ["shld"             , "r32/m32, r32, ib"                         , "MRI"  , "0F A4 /r ib"                      , "ANY OF=W SF=W ZF=W AF=U PF=W CF=W"],
+    ["shld"             , "r32/m32, r32, cl"                         , "MR"   , "0F A5 /r"                         , "ANY OF=W SF=W ZF=W AF=U PF=W CF=W"],
+    ["shld"             , "r64/m64, r64, ib"                         , "MRI"  , "REX.W 0F A4 /r ib"                , "X64 OF=W SF=W ZF=W AF=U PF=W CF=W"],
+    ["shld"             , "r64/m64, r64, cl"                         , "MR"   , "REX.W 0F A5 /r"                   , "X64 OF=W SF=W ZF=W AF=U PF=W CF=W"],
+
+    ["shrd"             , "r16/m16, r16, ib"                         , "MRI"  , "66 0F AC /r ib"                   , "ANY OF=W SF=W ZF=W AF=U PF=W CF=W"],
+    ["shrd"             , "r16/m16, r16, cl"                         , "MR"   , "66 0F AD /r"                      , "ANY OF=W SF=W ZF=W AF=U PF=W CF=W"],
+    ["shrd"             , "r32/m32, r32, ib"                         , "MRI"  , "0F AC /r ib"                      , "ANY OF=W SF=W ZF=W AF=U PF=W CF=W"],
+    ["shrd"             , "r32/m32, r32, cl"                         , "MR"   , "0F AD /r"                         , "ANY OF=W SF=W ZF=W AF=U PF=W CF=W"],
+    ["shrd"             , "r64/m64, r64, ib"                         , "MRI"  , "REX.W 0F AC /r ib"                , "X64 OF=W SF=W ZF=W AF=U PF=W CF=W"],
+    ["shrd"             , "r64/m64, r64, cl"                         , "MR"   , "REX.W 0F AD /r"                   , "X64 OF=W SF=W ZF=W AF=U PF=W CF=W"],
+
+    ["stac"             , ""                                         , "NONE" , "0F 01 CB"                         , "ANY VOLATILE SMAP AC=1"],
+    ["stc"              , ""                                         , "NONE" , "F9"                               , "ANY CF=1"],
+    ["std"              , ""                                         , "NONE" , "FD"                               , "ANY DF=1"],
+    ["sti"              , ""                                         , "NONE" , "FB"                               , "ANY VOLATILE IF=1"],
+
+    ["stosb"            , "X:<es:zdi>, R:<al>"                       , "NONE" , "AA"                               , "ANY REP DF=R"],
+    ["stosw"            , "X:<es:zdi>, R:<ax>"                       , "NONE" , "66 AB"                            , "ANY REP DF=R"],
+    ["stosd"            , "X:<es:zdi>, R:<eax>"                      , "NONE" , "AB"                               , "ANY REP DF=R"],
+    ["stosq"            , "X:<es:zdi>, R:<rax>"                      , "NONE" , "REX.W AB"                         , "X64 REP DF=R"],
+
+    ["sub"              , "al, ib"                                   , "I"    , "2C ib"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "ax, iw"                                   , "I"    , "66 2D iw"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "eax, id"                                  , "I"    , "2D id"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "rax, id"                                  , "I"    , "REX.W 2D id"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["sub"              , "r8/m8, ib"                                , "MI"   , "80 /5 ib"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "r16/m16, iw"                              , "MI"   , "66 81 /5 iw"                      , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "r32/m32, id"                              , "MI"   , "81 /5 id"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "r64/m64, id"                              , "MI"   , "REX.W 81 /5 id"                   , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["sub"              , "r16/m16, ib"                              , "MI"   , "66 83 /5 ib"                      , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "r32/m32, ib"                              , "MI"   , "83 /5 ib"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "r64/m64, ib"                              , "MI"   , "REX.W 83 /5 ib"                   , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["sub"              , "r8/m8, r8"                                , "MR"   , "28 /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "r16/m16, r16"                             , "MR"   , "66 29 /r"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "r32/m32, r32"                             , "MR"   , "29 /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "r64/m64, r64"                             , "MR"   , "REX.W 29 /r"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["sub"              , "r8, r8/m8"                                , "RM"   , "2A /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "r16, r16/m16"                             , "RM"   , "66 2B /r"                         , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "r32, r32/m32"                             , "RM"   , "2B /r"                            , "ANY LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["sub"              , "r64, r64/m64"                             , "RM"   , "REX.W 2B /r"                      , "X64 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["swapgs"           , ""                                         , "NONE" , "0F 01 F8"                         , "X64 VOLATILE"],
+
+    ["test"             , "R:al, ib"                                 , "I"    , "A8 ib"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["test"             , "R:ax, iw"                                 , "I"    , "66 A9 iw"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["test"             , "R:eax, id"                                , "I"    , "A9 id"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["test"             , "R:rax, id"                                , "I"    , "REX.W A9 id"                      , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["test"             , "R:r8/m8, ib"                              , "MI"   , "F6 /0 ib"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["test"             , "R:r16/m16, iw"                            , "MI"   , "66 F7 /0 iw"                      , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["test"             , "R:r32/m32, id"                            , "MI"   , "F7 /0 id"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["test"             , "R:r64/m64, id"                            , "MI"   , "REX.W F7 /0 id"                   , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["test"             , "R:r8/m8, r8"                              , "MR"   , "84 /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["test"             , "R:r16/m16, r16"                           , "MR"   , "66 85 /r"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["test"             , "R:r32/m32, r32"                           , "MR"   , "85 /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["test"             , "R:r64/m64, r64"                           , "MR"   , "REX.W 85 /r"                      , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["ud2"              , ""                                         , "NONE" , "0F 0B"                            , "ANY"],
+
+    ["xadd"             , "X:r8/m8, X:r8"                            , "MR"   , "0F C0 /r"                         , "ANY I486 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["xadd"             , "X:r16/m16, X:r16"                         , "MR"   , "66 0F C1 /r"                      , "ANY I486 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["xadd"             , "X:r32/m32, X:r32"                         , "MR"   , "0F C1 /r"                         , "ANY I486 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+    ["xadd"             , "X:r64/m64, X:r64"                         , "MR"   , "REX.W 0F C1 /r"                   , "X64 I486 LOCK OF=W SF=W ZF=W AF=W PF=W CF=W"],
+
+    ["xchg"             , "X:ax, X:r16"                              , "O"    , "66 90+r"                          , "ANY LOCK"],
+    ["xchg"             , "X:eax, X:r32"                             , "O"    , "90+r"                             , "ANY LOCK"],
+    ["xchg"             , "X:rax, X:r64"                             , "O"    , "REX.W 90+r"                       , "X64 LOCK"],
+
+    ["xchg"             , "X:r16, X:ax"                              , "O"    , "66 90+r"                          , "ANY LOCK"],
+    ["xchg"             , "X:r32, X:eax"                             , "O"    , "90+r"                             , "ANY LOCK"],
+    ["xchg"             , "X:r64, X:rax"                             , "O"    , "REX.W 90+r"                       , "X64 LOCK"],
+
+    ["xchg"             , "X:r8/m8, X:r8"                            , "MR"   , "86 /r"                            , "ANY LOCK"],
+    ["xchg"             , "X:r16/m16, X:r16"                         , "MR"   , "66 87 /r"                         , "ANY LOCK"],
+    ["xchg"             , "X:r32/m32, X:r32"                         , "MR"   , "87 /r"                            , "ANY LOCK"],
+    ["xchg"             , "X:r64/m64, X:r64"                         , "MR"   , "REX.W 87 /r"                      , "X64 LOCK"],
+
+    ["xchg"             , "X:r8, X:r8/m8"                            , "RM"   , "86 /r"                            , "ANY LOCK"],
+    ["xchg"             , "X:r16, X:r16/m16"                         , "RM"   , "66 87 /r"                         , "ANY LOCK"],
+    ["xchg"             , "X:r32, X:r32/m32"                         , "RM"   , "87 /r"                            , "ANY LOCK"],
+    ["xchg"             , "X:r64, X:r64/m64"                         , "RM"   , "REX.W 87 /r"                      , "X64 LOCK"],
+
+    ["xor"              , "al, ib"                                   , "I"    , "34 ib"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "ax, iw"                                   , "I"    , "66 35 iw"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "eax, id"                                  , "I"    , "35 id"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "rax, id"                                  , "I"    , "REX.W 35 id"                      , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["xor"              , "r8/m8, ib"                                , "MI"   , "80 /6 ib"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "r16/m16, iw"                              , "MI"   , "66 81 /6 iw"                      , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "r32/m32, id"                              , "MI"   , "81 /6 id"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "r64/m64, id"                              , "MI"   , "REX.W 81 /6 id"                   , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["xor"              , "r16/m16, ib"                              , "MI"   , "66 83 /6 ib"                      , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "r32/m32, ib"                              , "MI"   , "83 /6 ib"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "r64/m64, ib"                              , "MI"   , "REX.W 83 /6 ib"                   , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["xor"              , "r8/m8, r8"                                , "MR"   , "30 /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "r16/m16, r16"                             , "MR"   , "66 31 /r"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "r32/m32, r32"                             , "MR"   , "31 /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "r64/m64, r64"                             , "MR"   , "REX.W 31 /r"                      , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+
+    ["xor"              , "r8, r8/m8"                                , "RM"   , "32 /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "r16, r16/m16"                             , "RM"   , "66 33 /r"                         , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "r32, r32/m32"                             , "RM"   , "33 /r"                            , "ANY LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+    ["xor"              , "r64, r64/m64"                             , "RM"   , "REX.W 33 /r"                      , "X64 LOCK OF=0 SF=W ZF=W AF=U PF=W CF=0"],
+]
