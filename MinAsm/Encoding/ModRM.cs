@@ -5,12 +5,16 @@ namespace MinAsm.Encoding
     /// <summary>
     /// Certain encodings of the ModR/M byte require a second addressing byte.
     /// </summary>
-    public class ModRM
+    public sealed class ModRM
     {
         byte m_rm  = 0,
              m_reg = 0,
              m_mod = 0;
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
         public ModRM(byte value = 0) : this(
                 (byte)((value     ) & 7),
                 (byte)((value >> 3) & 7),
@@ -90,7 +94,7 @@ namespace MinAsm.Encoding
         }
 
         /// <summary>
-        ///
+        /// Set <see cref="Mod"/> field from <see cref="DataSize"/>.
         /// </summary>
         /// <param name="size"></param>
         public void ModFromDataSize(DataSize size)
@@ -115,7 +119,7 @@ namespace MinAsm.Encoding
         public byte RexB => (byte)((m_rm & 0x08) >> 3);
 
         /// <summary>
-        ///
+        /// Present ModRM as <see cref="byte"/> value.
         /// </summary>
         byte Raw => (byte)((m_mod << 6) | ((m_reg & 7) << 3) | (m_rm & 7));
 
@@ -165,13 +169,13 @@ namespace MinAsm.Encoding
         public static bool operator !=(ModRM a, ModRM b) => a?.Raw != b?.Raw;
 
         /// <summary>
-        ///
+        /// Cast <see cref="ModRM" /> to <see cref="byte"/>.
         /// </summary>
         /// <param name="value"></param>
         public static explicit operator byte(ModRM value) => value.Raw;
 
         /// <summary>
-        ///
+        /// Cast <see cref="byte" /> to <see cref="ModRM"/>.
         /// </summary>
         /// <param name="value"></param>
         public static explicit operator ModRM(byte value) => new ModRM(value);

@@ -202,14 +202,19 @@ namespace MinAsm.Operands
         public override string ToString()
         {
             var str = "";
+
             if (!Base.IsNone)
                 str += "[" + Base.Name;
+
             if (!Index.IsNone)
                 str += "+" + Index.Name;
+
             if (Scale != Scale.None)
                 str += "*" + (byte)Scale;
+
             if (!string.IsNullOrEmpty(str))
                 str += "]";
+
             return str;
         }
     }

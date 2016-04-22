@@ -5,12 +5,16 @@ namespace MinAsm.Encoding
     /// <summary>
     /// The base-plus-index and scale-plus-index forms of 32-bit addressing require the SIB byte.
     /// </summary>
-    public class Sib
+    public sealed class Sib
     {
         byte m_b = 0,
              m_i = 0;
         Scale m_s = Scale.None;
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="value"></param>
         public Sib(byte value = 0) : this(
                 (byte)((value     ) & 7),
                 (byte)((value >> 3) & 7),
